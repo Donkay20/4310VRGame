@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Uduino;
 
-public class NewBehaviourScript : MonoBehaviour
+public class ButtonLED : MonoBehaviour
 {
     public int ledPin = 8; // Pin number of the LED
     public int buttonPin = 7; // Pin number of the button
