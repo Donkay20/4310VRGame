@@ -5,12 +5,15 @@ using System.Linq;
 
 public class CapsulesController : MonoBehaviour
 {
+    public static CapsulesController Instance;
     [SerializeField] private List<Pattern> patterns;
-    [SerializeField] private List<Capsules> capsules;
+    [SerializeField] private List<Capsules> capsules = new List<Capsules>();
 
     private void Awake()
     {
-        InitializePatterns();
+        Instance = this;
+
+        capsules = new List<Capsules>(GetComponentsInChildren<Capsules>());
     }
 
     public Pattern GetUniquePattern()
@@ -18,43 +21,72 @@ public class CapsulesController : MonoBehaviour
         List<Pattern> availablePatterns = patterns.Where(p => !p.isDisplayed).ToList();
         if (availablePatterns.Count == 0)
         {
-            Debug.LogError("No more unique patterns available!");
             return default;
         }
-
         int index = UnityEngine.Random.Range(0, availablePatterns.Count);
         availablePatterns[index].isDisplayed = true;
         return availablePatterns[index];
     }
 
-    private void InitializePatterns()
-    {
-        // Initialize your patterns here, possibly reading from a data file or editor settings
-    }
-
     // Call this method to randomly pick a capsule and assign a unique pattern to it
-    public void AssignPatternToCapsule()
+    public void ActivateOneRandomCapsule()
     {
-        if (capsules.Count == 0)
+        List<Capsules> availableCapsules = capsules.Where(c => !c.isStarted).ToList();
+        if (availableCapsules.Count == 0)
         {
             Debug.LogError("No capsules to assign patterns to!");
             return;
         }
 
-        Capsules capsule = capsules[UnityEngine.Random.Range(0, capsules.Count)];
+        Capsules capsule = availableCapsules[UnityEngine.Random.Range(0, capsules.Count)];
         Pattern pattern = GetUniquePattern();
-        capsule.ActivateCapsule();
+        if (pattern == null)
+        {
+            Debug.LogError("No unique pattern available to assign!");
+            return;
+        }
+        capsule.ActivateCapsule(pattern);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void ResetPattern(Pattern pattern)
     {
-
+        pattern.isDisplayed = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown("g"))
+        {
+            ActivateOneRandomCapsule();
+        }
+    }
+    public void CheckPatternsInCapsules(Vector4[] inputPattern)
+    {
+        foreach (Capsules capsule in capsules)
+        {
+            if (capsule.isStarted && ComparePatterns(capsule.currentPattern.pattern, inputPattern))
+            {
+                capsule.DeactivateCapsule();
+                break;
+            }
+        }
+    }
+    private bool ComparePatterns(Vector4[] pattern1, Vector4[] pattern2)
+    {
+        if (pattern1.Length != pattern2.Length)
+            return false;
 
+        for (int i = 0; i < pattern1.Length; i++)
+        {
+            if (!Vector4Equals(pattern1[i], pattern2[i]))
+                return false;
+        }
+        return true;
+    }
+
+    private bool Vector4Equals(Vector4 a, Vector4 b)
+    {
+        return a.x == b.x && a.y == b.y && a.z == b.z && a.w == b.w;
     }
 }

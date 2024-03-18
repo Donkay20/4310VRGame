@@ -16,6 +16,8 @@ public class Capsules : MonoBehaviour
     private Coroutine riseCoroutine;
     private Coroutine descendCoroutine;
 
+    public Pattern currentPattern { get; private set; }
+    private GameObject currentModel;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +28,7 @@ public class Capsules : MonoBehaviour
         {
             StartMovingUp();
         }
-        
+
     }
 
     // Update is called once per frame
@@ -53,11 +55,27 @@ public class Capsules : MonoBehaviour
         descendCoroutine = StartCoroutine(Descend(riseDistance, riseDurationSecs));
     }
 
-    public void ActivateCapsule()
+    public void ActivateCapsule(Pattern pattern)
     {
+        currentPattern = pattern;
+        if (currentPattern.model != null)
+        {
+            // Destroy the previous model if it exists
+            if (currentModel != null)
+            {
+                Destroy(currentModel);
+            }
+
+            currentModel = Instantiate(currentPattern.model, transform.position, Quaternion.identity);
+            currentModel.transform.SetParent(transform);
+        }
         isStarted = true;
     }
-
+    public void DeactivateCapsule()
+    {
+        isStarted = false;
+    }
+    
     private IEnumerator RiseUp(float distance, float time)
     {
         isRisingComplete = false;
@@ -74,6 +92,7 @@ public class Capsules : MonoBehaviour
 
         transform.position = endPosition;
         isRisingComplete = true;
+        isDescendingComplete = false;
         riseCoroutine = null;
     }
 
@@ -94,6 +113,16 @@ public class Capsules : MonoBehaviour
         transform.position = endPosition;
         isDescendingComplete = true;
         isRisingComplete = false;
+        if (currentPattern != null)
+        {
+            CapsulesController.Instance.ResetPattern(currentPattern);
+            currentPattern = null;
+        }
+        if (currentModel != null)
+        {
+            Destroy(currentModel);
+            currentModel = null;
+        }
         descendCoroutine = null;
     }
 }
