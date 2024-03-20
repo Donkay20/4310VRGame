@@ -61,7 +61,7 @@ public class CapsulesController : MonoBehaviour
             ActivateOneRandomCapsule();
         }
     }
-    public void CheckPatternsInCapsules(Vector4[] inputPattern)
+    public void CheckPatternsInCapsules(Vector3[] inputPattern)
     {
         foreach (Capsules capsule in capsules)
         {
@@ -72,21 +72,21 @@ public class CapsulesController : MonoBehaviour
             }
         }
     }
-    private bool ComparePatterns(Vector4[] pattern1, Vector4[] pattern2)
+    private bool ComparePatterns(Vector3[] pattern1, Vector3[] pattern2)
     {
         if (pattern1.Length != pattern2.Length)
             return false;
 
         for (int i = 0; i < pattern1.Length; i++)
         {
-            if (!Vector4Equals(pattern1[i], pattern2[i]))
+            if (!Vector3Equals(pattern1[i], pattern2[i]))
                 return false;
         }
         return true;
     }
 
-    private bool Vector4Equals(Vector4 a, Vector4 b)
+    private bool Vector3Equals(Vector3 a, Vector3 b)
     {
-        return a.x == b.x && a.y == b.y && a.z == b.z && a.w == b.w;
+        return a.x == b.x && a.y == b.y && a.z == b.z;
     }
 }

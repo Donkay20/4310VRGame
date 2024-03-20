@@ -7,5 +7,5 @@ public class Pattern
 {
     public bool isDisplayed;
     public GameObject model;
-    public Vector4[] pattern = new Vector4[4];
+    public Vector3[] pattern = new Vector3[3];
 }

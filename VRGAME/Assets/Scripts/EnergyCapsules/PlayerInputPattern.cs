@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerInputPattern : MonoBehaviour
 {
-    public Vector4[] inputPattern = new Vector4[4];
+    public Vector3[] inputPattern = new Vector3[3];
     // Start is called before the first frame update
     void Start()
     {
