@@ -13242,7 +13242,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1169019389771402, guid: bb5e6aea88a650f4a8317e74940b0ea4, type: 3}
   m_PrefabInstance: {fileID: 1570924745}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1264946422
+--- !u!114 &1264946420
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13251,7 +13251,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1264946419}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5da1a609943af0b479a49a076ed10189, type: 3}
+  m_Script: {fileID: 11500000, guid: 6cc08d59c9d596b4580ce69b8275543b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ledPin: 8
@@ -16545,7 +16545,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1169019389771402, guid: bb5e6aea88a650f4a8317e74940b0ea4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1264946422}
+      addedObject: {fileID: 1264946420}
   m_SourcePrefab: {fileID: 100100000, guid: bb5e6aea88a650f4a8317e74940b0ea4, type: 3}
 --- !u!1 &1573382087 stripped
 GameObject:
@@ -18205,7 +18205,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 6e-44, y: 8e-45, z: 5.929e-42, w: 4e-45}
+  m_BoundingSphereOverride: {x: 7.57e-43, y: 1.2772699e+24, z: 7.57e-43, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
