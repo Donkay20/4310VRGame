@@ -1623,17 +1623,15 @@ MonoBehaviour:
   - isDisplayed: 0
     model: {fileID: 7960534880027431959, guid: cb0d3bdfa2be94645baade236c2acabf, type: 3}
     pattern:
-    - {x: 0, y: 0, z: 0, w: 0}
-    - {x: 0, y: 0, z: 0, w: 0}
-    - {x: 0, y: 0, z: 0, w: 0}
-    - {x: 0, y: 0, z: 0, w: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
   - isDisplayed: 0
     model: {fileID: 7908992160547416783, guid: de80feda5219dc34c946730728d07778, type: 3}
     pattern:
-    - {x: 1, y: 0, z: 0, w: 0}
-    - {x: 0, y: 0, z: 0, w: 0}
-    - {x: 0, y: 0, z: 0, w: 0}
-    - {x: 0, y: 0, z: 0, w: 0}
+    - {x: 1, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
   capsules: []
 --- !u!1 &167457177
 GameObject:
@@ -13277,10 +13275,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputPattern:
-  - {x: 1, y: 0, z: 0, w: 0}
-  - {x: 0, y: 0, z: 0, w: 0}
-  - {x: 0, y: 0, z: 0, w: 0}
-  - {x: 0, y: 0, z: 0, w: 0}
+  - {x: 1, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
 --- !u!1 &1215012699
 GameObject:
   m_ObjectHideFlags: 0
@@ -19105,7 +19102,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 6e-44, z: 1e-45, w: 2.141e-42}
+  m_BoundingSphereOverride: {x: 9.1835e-41, y: 5.1134013e-37, z: 4.08668e-39, w: -9.574809e+31}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
