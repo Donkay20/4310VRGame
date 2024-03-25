@@ -8,13 +8,14 @@ public class Homing : MonoBehaviour
     public GameObject target;
     public float speed = 1.0f;
 
-    // Start is called before the first frame update
+    // This script allows this object to move towards the target game object
+    // Moves in the z-direction, make sure object face +z in prefab
+
     void Start()
     {
-        
+        // Maybe set target to player here
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (target != null)
