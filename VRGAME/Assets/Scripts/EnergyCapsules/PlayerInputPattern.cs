@@ -19,4 +19,29 @@ public class PlayerInputPattern : MonoBehaviour
             CapsulesController.Instance.CheckPatternsInCapsules(inputPattern);
         }
     }
+
+    public void UpdatePatternElement(int row, char component, float value)
+    {
+        if (row < 0 || row >= inputPattern.Length)
+        {
+            Debug.LogError("Row index out of range.");
+            return;
+        }
+
+        switch (component)
+        {
+            case 'x':
+                inputPattern[row].x = value;
+                break;
+            case 'y':
+                inputPattern[row].y = value;
+                break;
+            case 'z':
+                inputPattern[row].z = value;
+                break;
+            default:
+                Debug.LogError("Invalid component.");
+                break;
+        }
+    }
 }
