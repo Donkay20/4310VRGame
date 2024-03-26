@@ -338,7 +338,7 @@ MonoBehaviour:
   missleSpawner: {fileID: 7961960574466479912}
   missle: {fileID: 2600650135754437037, guid: 3c7ac5184c3a87e4e9388703f279df93, type: 3}
   droneSpawner: {fileID: 8751474592429783123}
-  drone: {fileID: 2600650135754437037, guid: 3c7ac5184c3a87e4e9388703f279df93, type: 3}
+  drone: {fileID: 5608450033159286899, guid: 8e944e871138e2747a164a9a78a1058e, type: 3}
   timer1: 0
   timer2: 0
 --- !u!114 &-4094649410185352433
