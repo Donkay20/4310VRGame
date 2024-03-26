@@ -5,7 +5,7 @@ using Uduino; // adding Uduino NameSpace
 public class FadeInOut : MonoBehaviour
 {
     UduinoManager u; // The instance of Uduino is initialized here
-    public int ledPin = 9;
+    public int ledPin = 8;
     [Range(0,255)]
     public int brightness = 0;
     int fadeAmount = 5;

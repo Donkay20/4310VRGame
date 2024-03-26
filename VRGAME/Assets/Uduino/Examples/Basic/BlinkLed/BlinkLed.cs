@@ -5,7 +5,7 @@ using Uduino; // adding Uduino NameSpace
 public class BlinkLed : MonoBehaviour
 {
     UduinoManager u; // The instance of Uduino is initialized here
-    public int blinkPin = 13;
+    public int blinkPin = 8;
     [Range(0,5)]
     public float blinkSpeed = 1;
     void Start()

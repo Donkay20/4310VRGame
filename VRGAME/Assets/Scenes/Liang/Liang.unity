@@ -4292,10 +4292,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc08d59c9d596b4580ce69b8275543b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ledPin: 8
   buttonPin: 7
-  keyWhenPressed: 0
-  keyWhenReleased: 0
+  ledPin: 8
 --- !u!1001 &394396598
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20456,7 +20454,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 4.5905e-41, y: -32833792, z: 4.5905e-41, w: 9.403955e-38}
+  m_BoundingSphereOverride: {x: 6.977296e+22, y: 7.225071e+28, z: 7.4992606e+28, w: 6.1289647e+31}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
