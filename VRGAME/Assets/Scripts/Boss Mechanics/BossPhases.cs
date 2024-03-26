@@ -7,19 +7,22 @@ using static UnityEngine.GraphicsBuffer;
 public class BossPhases : MonoBehaviour
 {
     public float lookSpeed = 0.3f;
-    public float phaseSwitchTimer = 10.0f;
+    public float phaseSwitchMaxTime = 15.0f;
     public Boolean phase = true;
-    public float missleLaunchTimer = 3.0f;
+    public float attackMaxTime = 3.0f;
     public GameObject missleSpawner;
     public GameObject missle;
+    public GameObject droneSpawner;
+    public GameObject drone;
     public float timer1;
     public float timer2;
+    private int currentAttack;
 
     // Start is called before the first frame update
     void Start()
     {
-        timer1 = phaseSwitchTimer;
-        timer2 = missleLaunchTimer;
+        timer1 = phaseSwitchMaxTime;
+        timer2 = attackMaxTime;
     }
 
     // Update is called once per frame
@@ -30,23 +33,95 @@ public class BossPhases : MonoBehaviour
 
         timer1 -= Time.deltaTime;
         
+        //phase switch
         if (timer1 <= 0)
         {
             phase = !phase;
-            timer1 = phaseSwitchTimer;
+            timer1 = phaseSwitchMaxTime;
         }
 
-        if(phase)
+        //attack
+        Boolean secondHalf = GetComponent<Health>().health > GetComponent<Health>().maxHealth / 2;
+        timer2 -= Time.deltaTime;
+        if (phase)
+        {
+            if (timer2 <= 0)
+            {
+                timer2 = attackMaxTime;
+                
+                if (secondHalf)
+                {
+                    currentAttack = UnityEngine.Random.Range(0, 3);
+                }
+                else
+                {
+                    currentAttack = UnityEngine.Random.Range(0, 2);
+                }
+
+                if(currentAttack == 0)
+                {
+                    GameObject obj = Instantiate(missle, missleSpawner.transform.position, Quaternion.LookRotation(direction));
+                    obj.GetComponent<Homing>().target = Camera.main.gameObject;
+                    obj.GetComponent<DistanceDetection>().target = Camera.main.gameObject;
+                }else if(currentAttack == 1)
+                {
+                    if(secondHalf)
+                    {
+                        //do upgraded wide range attack
+                    }
+                    else
+                    {
+                        //do wide range attack
+                    }
+
+                }
+                else
+                {
+                    //do the fire ball attack
+                }
+                
+            }
+        }
+        else
         {
             timer2 -= Time.deltaTime;
             if (timer2 <= 0)
             {
                 phase = !phase;
-                timer2 = missleLaunchTimer;
+                timer2 = attackMaxTime;
 
-                GameObject obj = Instantiate(missle, missleSpawner.transform.position, Quaternion.LookRotation(direction));
-                obj.GetComponent<Homing>().target = Camera.main.gameObject;
-                obj.GetComponent<DistanceDetection>().target = Camera.main.gameObject;
+                if (secondHalf)
+                {
+                    currentAttack = UnityEngine.Random.Range(0, 3);
+                }
+                else
+                {
+                    currentAttack = UnityEngine.Random.Range(0, 2);
+                }
+
+                if (currentAttack == 0)
+                {
+                    GameObject obj = Instantiate(drone, droneSpawner.transform.position, Quaternion.LookRotation(direction));
+                    obj.GetComponent<Homing>().target = Camera.main.gameObject;
+                    obj.GetComponent<DistanceDetection>().target = Camera.main.gameObject;
+                }
+                else if (currentAttack == 1)
+                {
+                    if (secondHalf)
+                    {
+                        //do beam attack
+                    }
+                    else
+                    {
+                        //do wide range attack
+                    }
+
+                }
+                else
+                {
+                    //do lightning strike attack
+                }
+
             }
         }
     }

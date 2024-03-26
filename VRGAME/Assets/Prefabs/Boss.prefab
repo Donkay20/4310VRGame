@@ -223,6 +223,7 @@ GameObject:
   - component: {fileID: 8067078818528278397}
   - component: {fileID: 6089310370184880953}
   - component: {fileID: 3091911884597311493}
+  - component: {fileID: -4094649410185352433}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -331,10 +332,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookSpeed: 0.3
-  phaseSwitchTimer: 10
+  phaseSwitchMaxTime: 15
   phase: 1
-  missleLaunchTimer: 3
+  attackMaxTime: 5
   missleSpawner: {fileID: 7961960574466479912}
   missle: {fileID: 2600650135754437037, guid: 3c7ac5184c3a87e4e9388703f279df93, type: 3}
+  droneSpawner: {fileID: 8751474592429783123}
+  drone: {fileID: 2600650135754437037, guid: 3c7ac5184c3a87e4e9388703f279df93, type: 3}
   timer1: 0
   timer2: 0
+--- !u!114 &-4094649410185352433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8877135341759076555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 983c1224552955140aed2def0b76effb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 1000

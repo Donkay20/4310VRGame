@@ -13,7 +13,6 @@ public class Homing : MonoBehaviour
 
     void Start()
     {
-        // Maybe set target to player here
     }
 
     void Update()
