@@ -5,34 +5,41 @@ using Uduino;
 
 public class ButtonLEDController : MonoBehaviour
 {
-    public int buttonPin = 7;
-    public int ledPin = 8;
-    bool buttonPressed = false;
-    bool ledState = false;
-    public PlayerInputPattern playerInputPattern;
+    public int[] buttonPins = {2, 4, 6, 8, 10}; // Pin numbers for the buttons
+    public int[] ledPins = {3, 5, 7, 9, 11}; // Pin numbers for the LEDs
+    bool[] buttonStates = new bool[5]; // Array to track the state of each button
+    bool[] ledStates = new bool[5]; // Array to track the state of each LED
 
-    float lastButtonPressTime;
-    float debounceDelay = 0.5f;
+    float[] lastButtonPressTimes = new float[5]; // Array to track the time of the last button press for each button
+    float debounceDelay = 0.5f; // Minimum time between button presses to avoid debounce
 
     void Start()
     {
-        UduinoManager.Instance.pinMode(buttonPin, PinMode.Input_pullup);
-        UduinoManager.Instance.pinMode(ledPin, PinMode.Output);
+        // Configure pin modes for buttons and LEDs
+        for (int i = 0; i < buttonPins.Length; i++)
+        {
+            UduinoManager.Instance.pinMode(buttonPins[i], PinMode.Input_pullup);
+            UduinoManager.Instance.pinMode(ledPins[i], PinMode.Output);
+        }
     }
 
     void Update()
     {
-        int buttonState = UduinoManager.Instance.digitalRead(buttonPin);
-
-        if (buttonState == 1 && Time.time - lastButtonPressTime > debounceDelay) 
+        // Check each button
+        for (int i = 0; i < buttonPins.Length; i++)
         {
-            ledState = !ledState;
+            int buttonState = UduinoManager.Instance.digitalRead(buttonPins[i]);
 
-            UduinoManager.Instance.digitalWrite(ledPin, ledState ? 255 : 0);
+            // Check if the button is pressed (assuming LOW means pressed)
+            if (buttonState == 1 && Time.time - lastButtonPressTimes[i] > debounceDelay)
+            {
+                // Toggle the LED state
+                ledStates[i] = !ledStates[i];
+                UduinoManager.Instance.digitalWrite(ledPins[i], ledStates[i] ? 255 : 0);
 
-            lastButtonPressTime = Time.time;
-
-            playerInputPattern.UpdatePatternElement(0, 'x', 1);
+                // Update the last button press time
+                lastButtonPressTimes[i] = Time.time;
+            }
         }
     }
 }
