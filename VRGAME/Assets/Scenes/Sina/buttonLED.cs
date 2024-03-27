@@ -3,65 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using Uduino;
 
-public class ButtonLED : MonoBehaviour
+public class ButtonLEDController : MonoBehaviour
 {
-    public int ledPin = 8; // Pin number of the LED
-    public int buttonPin = 7; // Pin number of the button
-    public KeyCode keyWhenPressed; // Keyboard key to send when the button is pressed
-    public KeyCode keyWhenReleased; // Keyboard key to send when the button is released
-    bool lastButtonState = false; // Previous state of the button
+    public int[] buttonPins = {2, 4, 6, 8, 10}; // Pin numbers for the buttons
+    public int[] ledPins = {3, 5, 7, 9, 11}; // Pin numbers for the LEDs
+    bool[] buttonStates = new bool[5]; // Array to track the state of each button
+    bool[] ledStates = new bool[5]; // Array to track the state of each LED
 
-    bool initialLedStateSent = false; // Flag to track if the initial LED state has been sent
+    float[] lastButtonPressTimes = new float[5]; // Array to track the time of the last button press for each button
+    float debounceDelay = 0.5f; // Minimum time between button presses to avoid debounce
 
     void Start()
     {
-        // Initialize Uduino and configure pins
-        UduinoManager.Instance.pinMode(ledPin, PinMode.Output);
-        UduinoManager.Instance.pinMode(buttonPin, PinMode.Input_pullup); // Use internal pull-up resistor
+        // Configure pin modes for buttons and LEDs
+        for (int i = 0; i < buttonPins.Length; i++)
+        {
+            UduinoManager.Instance.pinMode(buttonPins[i], PinMode.Input_pullup);
+            UduinoManager.Instance.pinMode(ledPins[i], PinMode.Output);
+        }
     }
 
     void Update()
     {
-        // Send initial LED state (HIGH) if not already sent
-        if (!initialLedStateSent)
+        // Check each button
+        for (int i = 0; i < buttonPins.Length; i++)
         {
-            UduinoManager.Instance.digitalWrite(ledPin, 1); // Turn LED on
-            initialLedStateSent = true;
-        }
+            int buttonState = UduinoManager.Instance.digitalRead(buttonPins[i]);
 
-        // Read the current state of the button
-        bool buttonState = UduinoManager.Instance.digitalRead(buttonPin) == 0; // Button is active low
-
-        // Check if the button state has changed (button pressed or released)
-        if (buttonState != lastButtonState)
-        {
-            // If the button is pressed
-            if (buttonState)
+            // Check if the button is pressed (assuming LOW means pressed)
+            if (buttonState == 1 && Time.time - lastButtonPressTimes[i] > debounceDelay)
             {
-                // Turn off the LED
-                UduinoManager.Instance.digitalWrite(ledPin, 0); // Turn LED off
+                // Toggle the LED state
+                ledStates[i] = !ledStates[i];
+                UduinoManager.Instance.digitalWrite(ledPins[i], ledStates[i] ? 255 : 0);
 
-                // Send the keyWhenPressed key
-                if (keyWhenPressed != KeyCode.None)
-                {
-                    UduinoManager.Instance.sendCommand(keyWhenPressed.ToString());
-                }
-            }
-            // If the button is released
-            else
-            {
-                // Turn on the LED
-                UduinoManager.Instance.digitalWrite(ledPin, 1); // Turn LED on
-
-                // Send the keyWhenReleased key
-                if (keyWhenReleased != KeyCode.None)
-                {
-                    UduinoManager.Instance.sendCommand(keyWhenReleased.ToString());
-                }
+                // Update the last button press time
+                lastButtonPressTimes[i] = Time.time;
             }
         }
-
-        // Update last button state
-        lastButtonState = buttonState;
     }
 }
