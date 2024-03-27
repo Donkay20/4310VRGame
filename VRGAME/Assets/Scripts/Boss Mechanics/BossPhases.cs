@@ -7,13 +7,17 @@ using static UnityEngine.GraphicsBuffer;
 public class BossPhases : MonoBehaviour
 {
     public float lookSpeed = 0.3f;
-    public float phaseSwitchMaxTime = 15.0f;
+    public float phaseSwitchMaxTime = 20.0f;
     public Boolean phase = true;
     public float attackMaxTime = 3.0f;
     public GameObject missleSpawner;
     public GameObject missle;
     public GameObject droneSpawner;
     public GameObject drone;
+    public GameObject beamAttack1;
+    public GameObject beamAttack2;
+    public GameObject flameAttack1;
+    public GameObject flameAttack2;
     public float timer1;
     public float timer2;
     private int currentAttack;
@@ -48,6 +52,7 @@ public class BossPhases : MonoBehaviour
             if (timer2 <= 0)
             {
                 timer2 = attackMaxTime;
+                DisableAttack();
                 
                 if (secondHalf)
                 {
@@ -63,15 +68,16 @@ public class BossPhases : MonoBehaviour
                     GameObject obj = Instantiate(missle, missleSpawner.transform.position, Quaternion.LookRotation(direction));
                     obj.GetComponent<Homing>().target = Camera.main.gameObject;
                     obj.GetComponent<DistanceDetection>().target = Camera.main.gameObject;
-                }else if(currentAttack == 1)
+                }
+                else if(currentAttack == 1)
                 {
                     if(secondHalf)
                     {
-                        //do upgraded wide range attack
+                        flameAttack1.SetActive(true);
                     }
                     else
                     {
-                        //do wide range attack
+                        flameAttack2.SetActive(true);
                     }
 
                 }
@@ -84,18 +90,14 @@ public class BossPhases : MonoBehaviour
         }
         else
         {
-            timer2 -= Time.deltaTime;
             if (timer2 <= 0)
             {
-                phase = !phase;
                 timer2 = attackMaxTime;
+                DisableAttack();
 
-                if (secondHalf)
-                {
+                if (secondHalf) { 
                     currentAttack = UnityEngine.Random.Range(0, 3);
-                }
-                else
-                {
+                }else{
                     currentAttack = UnityEngine.Random.Range(0, 2);
                 }
 
@@ -109,13 +111,12 @@ public class BossPhases : MonoBehaviour
                 {
                     if (secondHalf)
                     {
-                        //do beam attack
+                        beamAttack1.SetActive(true);
                     }
                     else
                     {
-                        //do wide range attack
+                        beamAttack2.SetActive(true);
                     }
-
                 }
                 else
                 {
@@ -124,5 +125,13 @@ public class BossPhases : MonoBehaviour
 
             }
         }
+    }
+
+    private void DisableAttack()
+    {
+        flameAttack1.SetActive(false);
+        flameAttack2.SetActive(false);
+        beamAttack1.SetActive(false);
+        beamAttack2.SetActive(false);
     }
 }

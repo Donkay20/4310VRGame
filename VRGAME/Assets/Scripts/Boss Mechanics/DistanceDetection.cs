@@ -6,6 +6,7 @@ public class DistanceDetection : MonoBehaviour
 {
     public int mode = 0;
     public GameObject target;
+    public float damage = 20;
     public float speed = 0.1f;
     public float stopDistance = 1.0f;
 
@@ -30,19 +31,21 @@ public class DistanceDetection : MonoBehaviour
             {
                 if (mode == 0)
                 {
-                    // decrease target hp needed
+                    // decrease target hp needed   
                     Destroy(this.gameObject, speed);
-                    if (GetComponent<Homing>().enabled)
+                    if (GetComponent<Homing>().isActiveAndEnabled)
                     {
-                        GetComponent<Homing>().enabled = false;
+                        GetComponent<Homing>().gameObject.SetActive(false);
+                        Camera.main.gameObject.GetComponent<Health>().health -= damage;
                     }
                 }
                 else if (mode == 1)
                 {
                     // start shooting
-                    if (GetComponent<Homing>().enabled)
+                    if (GetComponent<Homing>().isActiveAndEnabled)
                     {
-                        GetComponent<Homing>().enabled = false;
+                        GetComponent<Homing>().gameObject.SetActive(false);
+                        Camera.main.gameObject.GetComponent<Health>().health -= damage; //only temporary
                     }
                 }
             }
