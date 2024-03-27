@@ -3,65 +3,108 @@ using System.Collections.Generic;
 using UnityEngine;
 using Uduino;
 
-public class ButtonLED : MonoBehaviour
+public class ButtonLEDController : MonoBehaviour
 {
-    public int ledPin = 8; // Pin number of the LED
-    public int buttonPin = 7; // Pin number of the button
-    public KeyCode keyWhenPressed; // Keyboard key to send when the button is pressed
-    public KeyCode keyWhenReleased; // Keyboard key to send when the button is released
-    bool lastButtonState = false; // Previous state of the button
+    public int[] buttonPins = { 2, 4, 6, 8, 10 }; // Pin numbers for the buttons
+    public int[] ledPins = { 3, 5, 7, 9, 11 }; // Pin numbers for the LEDs
+    bool[] buttonStates = new bool[5]; // Array to track the state of each button
+    bool[] ledStates = new bool[5]; // Array to track the state of each LED
+    bool[] isPressed = { false, false, false, false, false }; // Array to track if the LED is pressed
 
-    bool initialLedStateSent = false; // Flag to track if the initial LED state has been sent
+    float[] lastButtonPressTimes = new float[5]; // Array to track the time of the last button press for each button
+    float debounceDelay = 1f; // Minimum time between button presses to avoid debounce
+
+    public PlayerInputPattern inputPattern;
 
     void Start()
     {
-        // Initialize Uduino and configure pins
-        UduinoManager.Instance.pinMode(ledPin, PinMode.Output);
-        UduinoManager.Instance.pinMode(buttonPin, PinMode.Input_pullup); // Use internal pull-up resistor
+        // Configure pin modes for buttons and LEDs
+        for (int i = 0; i < buttonPins.Length; i++)
+        {
+            UduinoManager.Instance.pinMode(buttonPins[i], PinMode.Input_pullup);
+            UduinoManager.Instance.pinMode(ledPins[i], PinMode.Output);
+        }
+
     }
 
     void Update()
     {
-        // Send initial LED state (HIGH) if not already sent
-        if (!initialLedStateSent)
+        // Check each button
+        for (int i = 0; i < buttonPins.Length; i++)
         {
-            UduinoManager.Instance.digitalWrite(ledPin, 1); // Turn LED on
-            initialLedStateSent = true;
-        }
+            int buttonState = UduinoManager.Instance.digitalRead(buttonPins[i]);
 
-        // Read the current state of the button
-        bool buttonState = UduinoManager.Instance.digitalRead(buttonPin) == 0; // Button is active low
-
-        // Check if the button state has changed (button pressed or released)
-        if (buttonState != lastButtonState)
-        {
-            // If the button is pressed
-            if (buttonState)
+            // Check if the button is pressed (assuming LOW means pressed)
+            if (buttonState == 1 && Time.time - lastButtonPressTimes[i] > debounceDelay && !isPressed[i])
             {
-                // Turn off the LED
-                UduinoManager.Instance.digitalWrite(ledPin, 0); // Turn LED off
+                isPressed[i] = true;
 
-                // Send the keyWhenPressed key
-                if (keyWhenPressed != KeyCode.None)
+                // Toggle the LED state
+                ledStates[i] = !ledStates[i];
+
+                UduinoManager.Instance.digitalWrite(ledPins[i], ledStates[i] ? 255 : 0);
+
+                // Update the last button press time
+                lastButtonPressTimes[i] = Time.time;
+
+                //inputPattern.UpdatePatternElement(0, 'x', 1);
+                switch (i)
                 {
-                    UduinoManager.Instance.sendCommand(keyWhenPressed.ToString());
+                    case 0:
+                        inputPattern.UpdatePatternElement(0, 'x', 1);
+                        break;
+                    case 1:
+                        inputPattern.UpdatePatternElement(0, 'y', 1);
+                        break;
+                    case 2:
+                        inputPattern.UpdatePatternElement(0, 'z', 1);
+                        break;
+                    case 3:
+                        inputPattern.UpdatePatternElement(1, 'x', 1);
+                        break;
+                    case 4:
+                        inputPattern.UpdatePatternElement(1, 'y', 1);
+                        break;
+                    default:
+                        Debug.LogError("Invalid component.");
+                        break;
                 }
             }
-            // If the button is released
-            else
+            if (buttonState == 1 && Time.time - lastButtonPressTimes[i] > debounceDelay && isPressed[i])
             {
-                // Turn on the LED
-                UduinoManager.Instance.digitalWrite(ledPin, 1); // Turn LED on
+                isPressed[i] = false;
 
-                // Send the keyWhenReleased key
-                if (keyWhenReleased != KeyCode.None)
+                // Toggle the LED state
+                ledStates[i] = !ledStates[i];
+
+                UduinoManager.Instance.digitalWrite(ledPins[i], ledStates[i] ? 255 : 0);
+
+                // Update the last button press time
+                lastButtonPressTimes[i] = Time.time;
+
+                //inputPattern.UpdatePatternElement(0, 'x', 0);
+                switch (i)
                 {
-                    UduinoManager.Instance.sendCommand(keyWhenReleased.ToString());
+                    case 0:
+                        inputPattern.UpdatePatternElement(0, 'x', 0);
+                        break;
+                    case 1:
+                        inputPattern.UpdatePatternElement(0, 'y', 0);
+                        break;
+                    case 2:
+                        inputPattern.UpdatePatternElement(0, 'z', 0);
+                        break;
+                    case 3:
+                        inputPattern.UpdatePatternElement(1, 'x', 0);
+                        break;
+                    case 4:
+                        inputPattern.UpdatePatternElement(1, 'y', 0);
+                        break;
+                    default:
+                        Debug.LogError("Invalid component.");
+                        break;
                 }
             }
         }
-
-        // Update last button state
-        lastButtonState = buttonState;
     }
 }
