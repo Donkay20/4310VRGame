@@ -5,11 +5,11 @@ using Uduino;
 
 public class ButtonLEDController : MonoBehaviour
 {
-    public int[] buttonPins = {2, 4, 6, 8, 10}; // Pin numbers for the buttons
-    public int[] ledPins = {3, 5, 7, 9, 11}; // Pin numbers for the LEDs
+    public int[] buttonPins = { 2, 4, 6, 8, 10 }; // Pin numbers for the buttons
+    public int[] ledPins = { 3, 5, 7, 9, 11 }; // Pin numbers for the LEDs
     bool[] buttonStates = new bool[5]; // Array to track the state of each button
     bool[] ledStates = new bool[5]; // Array to track the state of each LED
-    bool[] isPressed = {false, false, false, false, false}; // Array to track if the LED is pressed
+    bool[] isPressed = { false, false, false, false, false }; // Array to track if the LED is pressed
 
     float[] lastButtonPressTimes = new float[5]; // Array to track the time of the last button press for each button
     float debounceDelay = 1f; // Minimum time between button presses to avoid debounce
@@ -47,7 +47,28 @@ public class ButtonLEDController : MonoBehaviour
                 // Update the last button press time
                 lastButtonPressTimes[i] = Time.time;
 
-                inputPattern.UpdatePatternElement(0, 'x', 1);
+                //inputPattern.UpdatePatternElement(0, 'x', 1);
+                switch (i)
+                {
+                    case 0:
+                        inputPattern.UpdatePatternElement(0, 'x', 1);
+                        break;
+                    case 1:
+                        inputPattern.UpdatePatternElement(0, 'y', 1);
+                        break;
+                    case 2:
+                        inputPattern.UpdatePatternElement(0, 'z', 1);
+                        break;
+                    case 3:
+                        inputPattern.UpdatePatternElement(1, 'x', 1);
+                        break;
+                    case 4:
+                        inputPattern.UpdatePatternElement(1, 'y', 1);
+                        break;
+                    default:
+                        Debug.LogError("Invalid component.");
+                        break;
+                }
             }
             if (buttonState == 1 && Time.time - lastButtonPressTimes[i] > debounceDelay && isPressed[i])
             {
@@ -61,7 +82,28 @@ public class ButtonLEDController : MonoBehaviour
                 // Update the last button press time
                 lastButtonPressTimes[i] = Time.time;
 
-                inputPattern.UpdatePatternElement(0, 'x', 0);
+                //inputPattern.UpdatePatternElement(0, 'x', 0);
+                switch (i)
+                {
+                    case 0:
+                        inputPattern.UpdatePatternElement(0, 'x', 0);
+                        break;
+                    case 1:
+                        inputPattern.UpdatePatternElement(0, 'y', 0);
+                        break;
+                    case 2:
+                        inputPattern.UpdatePatternElement(0, 'z', 0);
+                        break;
+                    case 3:
+                        inputPattern.UpdatePatternElement(1, 'x', 0);
+                        break;
+                    case 4:
+                        inputPattern.UpdatePatternElement(1, 'y', 0);
+                        break;
+                    default:
+                        Debug.LogError("Invalid component.");
+                        break;
+                }
             }
         }
     }
