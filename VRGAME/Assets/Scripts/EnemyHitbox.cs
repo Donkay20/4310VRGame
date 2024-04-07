@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyHitbox : MonoBehaviour
 {
+    public EnemyHealthPH enemyHealth;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +21,11 @@ public class EnemyHitbox : MonoBehaviour
     {
         if (other.gameObject.tag == "Bullet")
         {
-            Debug.Log("assa");
+            enemyHealth.Damage(0.1f);
+        }
+        if (other.gameObject.tag == "LaserBullet")
+        {
+            enemyHealth.Damage(1f);
         }
     }
 
