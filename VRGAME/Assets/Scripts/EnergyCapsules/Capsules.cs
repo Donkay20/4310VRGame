@@ -18,11 +18,14 @@ public class Capsules : MonoBehaviour
 
     public Pattern currentPattern { get; private set; }
     private GameObject currentModel;
+    private Transform complexModels;
 
     // Start is called before the first frame update
     void Start()
     {
         originalPosition = transform.position;
+        complexModels = this.transform.GetChild(0);
+        complexModels.gameObject.SetActive(false);
 
         if (isStarted)
         {
@@ -70,6 +73,7 @@ public class Capsules : MonoBehaviour
             currentModel.transform.SetParent(transform);
         }
         isStarted = true;
+        complexModels.gameObject.SetActive(true);
     }
     public void DeactivateCapsule()
     {
@@ -113,6 +117,7 @@ public class Capsules : MonoBehaviour
         transform.position = endPosition;
         isDescendingComplete = true;
         isRisingComplete = false;
+        complexModels.gameObject.SetActive(false);
         if (currentPattern != null)
         {
             CapsulesController.Instance.ResetPattern(currentPattern);
