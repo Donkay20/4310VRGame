@@ -45,15 +45,11 @@ public class DistanceDetection : MonoBehaviour
                 else if (mode == 1)
                 {
                     // start shooting
-                    if (GetComponent<Homing>().isActiveAndEnabled)
+                    if (GetComponent<Homing>().enabled)
                     {
-                        GetComponent<Homing>().gameObject.SetActive(false);
+                        GetComponent<Homing>().enabled = false;
                     }
                 }
-            }
-            else
-            {
-                GetComponent<Homing>().enabled = true;
             }
         }
     }

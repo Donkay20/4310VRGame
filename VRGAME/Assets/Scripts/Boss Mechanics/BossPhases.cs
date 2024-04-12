@@ -1,153 +1,87 @@
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.GraphicsBuffer;
 
 public class BossPhases : MonoBehaviour
 {
-    public float lookSpeed = 0.3f;
-    public float phaseSwitchMaxTime = 20.0f;
-    public Boolean phase = true;
-    public float attackMaxTime = 3.0f;
-    public GameObject missleSpawner;
-    public GameObject missle;
-    public GameObject droneSpawner;
-    public GameObject drone;
-    public GameObject beamAttack1;
-    public GameObject beamAttack2;
-    public GameObject flameAttack1;
-    public GameObject flameAttack2;
-    public float timer1;
-    public float timer2;
-    private int currentAttack;
+    public readonly float LOOK_SPEED = 0.3f; //speed for boss to look at player
+    public readonly float ATTACK_COOLDOWN = 20f; //time btwn each attack
+    public GameObject missleSpawner, missle;
+    public GameObject droneSpawner, drone;
+    public GameObject beamAttack1, beamAttack2, flameAttack1, flameAttack2;
+    private Vector3 direction;
+    public float attackTimer; //timer for attacks
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        timer1 = phaseSwitchMaxTime;
-        timer2 = attackMaxTime;
+    void Start() {
+        attackTimer = ATTACK_COOLDOWN;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Vector3 direction = Camera.main.gameObject.transform.position - transform.position;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), lookSpeed * Time.deltaTime);
+    void Update() {
+        // make boss look at player
+        direction = Camera.main.gameObject.transform.position - transform.position;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), LOOK_SPEED * Time.deltaTime);
 
-        timer1 -= Time.deltaTime;
-        timer2 -= Time.deltaTime;
+        attackTimer -= Time.deltaTime;
 
-        if (timer1 <= 0)
-        {
-            //phase switch
-            phase = !phase;
-            timer1 = phaseSwitchMaxTime;
-            timer2 = attackMaxTime;
+        if (attackTimer < 0) {
+            DisableAttack();
+            Attack();
         }
-        else
-        {
-            //attack
-            Slider bossHP = GameObject.FindWithTag("EnemyHealth").GetComponent<Slider>();
-            Boolean secondHalf = !(bossHP.value > (bossHP.maxValue / 2f));
-            //Debug.Log(bossHP.value + "/" + (bossHP.maxValue / 2f));
-            if (phase)
-            {
-                if (timer2 <= 0)
-                {
-                    timer2 = attackMaxTime;
-                    DisableAttack();
-
-                    if (secondHalf)
-                    {
-                        currentAttack = UnityEngine.Random.Range(0, 3);
-                        Debug.Log("2nd Half:" + currentAttack);
-                    }
-                    else
-                    {
-                        currentAttack = UnityEngine.Random.Range(0, 2);
-                        Debug.Log("1st Half:" + currentAttack);
-                    }
-
-                    if (currentAttack == 0)
-                    {
-                        GameObject obj = Instantiate(missle, missleSpawner.transform.position, Quaternion.LookRotation(direction));
-                        obj.GetComponent<Homing>().target = Camera.main.gameObject;
-                        obj.GetComponent<DistanceDetection>().target = Camera.main.gameObject;
-                        Debug.Log("Fire Missile");
-                    }
-                    else if (currentAttack == 1)
-                    {
-                        if (secondHalf)
-                        {
-                            flameAttack2.SetActive(true);
-                        }
-                        else
-                        {
-                            flameAttack1.SetActive(true);
-                        }
-                        Debug.Log("Fire Thrower");
-
-                    }
-                    else
-                    {
-                        Debug.Log("Fire Balls");
-                    }
-
-                }
-            }
-            else
-            {
-                if (timer2 <= 0)
-                {
-                    timer2 = attackMaxTime;
-                    DisableAttack();
-
-                    if (secondHalf)
-                    {
-                        currentAttack = UnityEngine.Random.Range(0, 3);
-                        Debug.Log("2nd Half:" + currentAttack);
-                    }
-                    else
-                    {
-                        currentAttack = UnityEngine.Random.Range(0, 2);
-                        Debug.Log("1st Half:" + currentAttack);
-                    }
-
-                    if (currentAttack == 0)
-                    {
-                        GameObject obj = Instantiate(drone, droneSpawner.transform.position, Quaternion.LookRotation(direction));
-                        obj.GetComponent<Homing>().target = Camera.main.gameObject;
-                        obj.GetComponent<DistanceDetection>().target = Camera.main.gameObject;
-                        Debug.Log("Electric Drone");
-                    }
-                    else if (currentAttack == 1)
-                    {
-                        if (secondHalf)
-                        {
-                            beamAttack2.SetActive(true);
-                        }
-                        else
-                        {
-                            beamAttack1.SetActive(true);
-                        }
-                        Debug.Log("Electric Beam");
-                    }
-                    else
-                    {
-                        //do lightning strike attack
-                        Debug.Log("Electric Strikes");
-                    }
-
-                }
-            }
-        }
-
     }
 
-    private void DisableAttack()
-    {
+    private void Attack() {
+        attackTimer = ATTACK_COOLDOWN;
+
+        Slider bossHP = GameObject.FindWithTag("EnemyHealth").GetComponent<Slider>();
+        bool secondHalf = !(bossHP.value > (bossHP.maxValue / 2f));
+
+        switch (Random.Range(0,4)) {
+            case 0: //Fire | Missle Barrage
+                StartCoroutine(MissleBarrage());
+                Debug.Log("Flame Missle Barrage Activated.");
+                break;
+            case 1: //Fire | Flamethrower
+                if (!secondHalf) {
+                    flameAttack1.SetActive(true);
+                    Debug.Log("Flamethrower attack activated.");
+                } else {
+                    flameAttack2.SetActive(true);
+                    Debug.Log("Enhanced Flamethrower attack activated.");
+                }
+                break;
+            case 2: //Electric | Drone Barrage
+                GameObject eleDrone = Instantiate(drone, droneSpawner.transform.position, Quaternion.LookRotation(direction));
+                eleDrone.GetComponent<Homing>().target = Camera.main.gameObject;
+                eleDrone.GetComponent<DistanceDetection>().target = Camera.main.gameObject;
+                Debug.Log("Electric Drone Barrage activated.");
+                break;
+            case 3: //Electric | Electric Beam
+                if (!secondHalf) {
+                    beamAttack1.SetActive(true);
+                    Debug.Log("Electric Beam attack activated.");
+                } else {
+                    beamAttack2.SetActive(true);
+                    Debug.Log("Enhanced Electric Beam attack activated.");
+                }
+                break;
+        }
+    }
+
+    private IEnumerator MissleBarrage() {
+        int numberOfMissles = Random.Range(2,5);
+        while (numberOfMissles > 0) {
+            GameObject fireMissle = Instantiate(missle, missleSpawner.transform.position, Quaternion.LookRotation(direction));
+            fireMissle.GetComponent<Homing>().target = Camera.main.gameObject;
+            fireMissle.GetComponent<DistanceDetection>().target = Camera.main.gameObject;
+            numberOfMissles--;
+            yield return new WaitForSeconds(3);
+        }
+    }
+
+    private void DisableAttack() {
+        StopAllCoroutines();
         flameAttack1.SetActive(false);
         flameAttack2.SetActive(false);
         beamAttack1.SetActive(false);
