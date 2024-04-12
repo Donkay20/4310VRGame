@@ -13254,10 +13254,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc08d59c9d596b4580ce69b8275543b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ledPin: 8
-  buttonPin: 7
-  keyWhenPressed: 0
-  keyWhenReleased: 0
+  buttonPins: 020000000400000006000000080000000a000000
+  ledPins: 030000000500000007000000090000000b000000
+  inputPattern: {fileID: 0}
 --- !u!1 &1266928104
 GameObject:
   m_ObjectHideFlags: 0
