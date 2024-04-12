@@ -7,6 +7,7 @@ TagManager:
   - Bullet
   - Anchor
   - LaserBullet
+  - EnemyHealth
   layers:
   - Default
   - TransparentFX
