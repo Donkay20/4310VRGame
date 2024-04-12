@@ -65,6 +65,18 @@ public class ButtonLEDController : MonoBehaviour
                     case 4:
                         inputPattern.UpdatePatternElement(1, 'y', 1);
                         break;
+                    case 5:
+                        inputPattern.UpdatePatternElement(1, 'z', 1);
+                        break;
+                    case 6:
+                        inputPattern.UpdatePatternElement(2, 'x', 1);
+                        break;
+                    case 7:
+                        inputPattern.UpdatePatternElement(2, 'y', 1);
+                        break;
+                    case 8:
+                        inputPattern.UpdatePatternElement(2, 'z', 1);
+                        break;
                     default:
                         Debug.LogError("Invalid component.");
                         break;
@@ -99,6 +111,18 @@ public class ButtonLEDController : MonoBehaviour
                         break;
                     case 4:
                         inputPattern.UpdatePatternElement(1, 'y', 0);
+                        break;
+                    case 5:
+                        inputPattern.UpdatePatternElement(1, 'z', 0);
+                        break;
+                    case 6:
+                        inputPattern.UpdatePatternElement(2, 'x', 0);
+                        break;
+                    case 7:
+                        inputPattern.UpdatePatternElement(2, 'y', 0);
+                        break;
+                    case 8:
+                        inputPattern.UpdatePatternElement(2, 'z', 0);
                         break;
                     default:
                         Debug.LogError("Invalid component.");
