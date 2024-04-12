@@ -30,8 +30,7 @@ public class DistanceDetection : MonoBehaviour
             {
                 Destroy(this.gameObject, speed);
             }
-
-            if (distance <= stopDistance)
+            else if (distance <= stopDistance)
             {
                 if (mode == 0)
                 {
