@@ -21,11 +21,11 @@ public class EnemyHitbox : MonoBehaviour
     {
         if (other.gameObject.tag == "Bullet")
         {
-            enemyHealth.Damage(0.1f);
+            enemyHealth.DamageByBullet();
         }
         if (other.gameObject.tag == "LaserBullet")
         {
-            enemyHealth.Damage(1f);
+            enemyHealth.DamageByLaser();
         }
     }
 

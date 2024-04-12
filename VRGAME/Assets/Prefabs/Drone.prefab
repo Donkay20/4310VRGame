@@ -138,7 +138,7 @@ MonoBehaviour:
   damage: 20
   speed: 0.1
   stopDistance: 1
-  hp: 0.5
+  hp: 0.1
 --- !u!1 &2523396195606435547
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,7 +277,7 @@ MonoBehaviour:
   damage: 20
   speed: 0.1
   stopDistance: 1
-  hp: 0.5
+  hp: 0.1
 --- !u!1 &3870415416750617975
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,7 +416,7 @@ MonoBehaviour:
   damage: 20
   speed: 0.1
   stopDistance: 1
-  hp: 0.5
+  hp: 0.1
 --- !u!1 &4701909653515161149
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,7 +555,7 @@ MonoBehaviour:
   damage: 20
   speed: 0.1
   stopDistance: 1
-  hp: 0.5
+  hp: 0.1
 --- !u!1 &5589696436099408623
 GameObject:
   m_ObjectHideFlags: 0
@@ -694,7 +694,7 @@ MonoBehaviour:
   damage: 20
   speed: 0.1
   stopDistance: 1
-  hp: 0.5
+  hp: 0.1
 --- !u!1 &5608450033159286899
 GameObject:
   m_ObjectHideFlags: 0
@@ -906,7 +906,7 @@ MonoBehaviour:
   damage: 20
   speed: 0.1
   stopDistance: 1
-  hp: 0.5
+  hp: 0.1
 --- !u!1 &7622093311080439481
 GameObject:
   m_ObjectHideFlags: 0
@@ -1045,7 +1045,7 @@ MonoBehaviour:
   damage: 20
   speed: 0.1
   stopDistance: 1
-  hp: 0.5
+  hp: 0.1
 --- !u!1 &8892637257315060658
 GameObject:
   m_ObjectHideFlags: 0
@@ -1184,4 +1184,4 @@ MonoBehaviour:
   damage: 20
   speed: 0.1
   stopDistance: 1
-  hp: 0.5
+  hp: 0.1

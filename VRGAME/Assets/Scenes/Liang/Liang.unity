@@ -478,8 +478,8 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4592956391713993908, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
   m_PrefabInstance: {fileID: 1825262782}
   m_PrefabAsset: {fileID: 0}
---- !u!136 &23601167
-CapsuleCollider:
+--- !u!65 &23601167
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -496,11 +496,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.29
-  m_Height: 1.9727085
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.48636305, z: -0}
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.71817327, z: 0.2116169}
+  m_Center: {x: 1.2554278e-12, y: 0.82391965, z: 0.001004219}
 --- !u!1 &71842569
 GameObject:
   m_ObjectHideFlags: 0
@@ -2416,6 +2414,14 @@ PrefabInstance:
     - target: {fileID: 5563181172819996978, guid: d9789ac393d69ca48ad0bba5b6f8269c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5733950604603863789, guid: d9789ac393d69ca48ad0bba5b6f8269c, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5733950604603863789, guid: d9789ac393d69ca48ad0bba5b6f8269c, type: 3}
+      propertyPath: m_MaxValue
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7169527122657527517, guid: d9789ac393d69ca48ad0bba5b6f8269c, type: 3}
       propertyPath: m_LocalScale.x
@@ -13489,6 +13495,8 @@ MonoBehaviour:
   battery2: {fileID: 299369285}
   battery3: {fileID: 932200693}
   battery4: {fileID: 1536738804}
+  statusText: {fileID: 1035978816}
+  energy: 0
 --- !u!114 &1090968962 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1193132056, guid: bceefb2a39f6db74d9bc9d006687b7f1, type: 3}
