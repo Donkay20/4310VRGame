@@ -138,4 +138,4 @@ MonoBehaviour:
   damage: 20
   speed: 0.1
   stopDistance: 1
-  hp: 0.5
+  hp: 0.3

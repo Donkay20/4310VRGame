@@ -21,33 +21,35 @@ public class DistanceDetection : MonoBehaviour
 
     void Update()
     {
+        float distance = 3000;
         if (target != null)
         {
             Vector3 direction = target.transform.position - transform.position;
-            float distance = direction.magnitude;
+            distance = direction.magnitude;
+        }
+        
 
-            if (hp < 0)
+        if (hp < 0)
+        {
+            Destroy(this.gameObject);
+        }
+        else if (distance <= stopDistance)
+        {
+            if (mode == 0)
             {
+                // decrease target hp needed   
                 Destroy(this.gameObject, speed);
-            }
-            else if (distance <= stopDistance)
-            {
-                if (mode == 0)
+                if (GetComponent<Homing>().isActiveAndEnabled)
                 {
-                    // decrease target hp needed   
-                    Destroy(this.gameObject, speed);
-                    if (GetComponent<Homing>().isActiveAndEnabled)
-                    {
-                        GetComponent<Homing>().gameObject.SetActive(false);
-                    }
+                    GetComponent<Homing>().gameObject.SetActive(false);
                 }
-                else if (mode == 1)
+            }
+            else if (mode == 1)
+            {
+                // start shooting
+                if (GetComponent<Homing>().enabled)
                 {
-                    // start shooting
-                    if (GetComponent<Homing>().enabled)
-                    {
-                        GetComponent<Homing>().enabled = false;
-                    }
+                    GetComponent<Homing>().enabled = false;
                 }
             }
         }
