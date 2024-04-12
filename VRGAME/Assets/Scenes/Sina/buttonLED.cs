@@ -5,13 +5,13 @@ using Uduino;
 
 public class ButtonLEDController : MonoBehaviour
 {
-    public int[] buttonPins = { 2, 4, 6, 8, 10 }; // Pin numbers for the buttons
-    public int[] ledPins = { 3, 5, 7, 9, 11 }; // Pin numbers for the LEDs
-    bool[] buttonStates = new bool[5]; // Array to track the state of each button
-    bool[] ledStates = new bool[5]; // Array to track the state of each LED
-    bool[] isPressed = { false, false, false, false, false }; // Array to track if the LED is pressed
+    public int[] buttonPins = { 2, 4, 6, 8, 10, 12, 14, 16, 18 }; // Pin numbers for the buttons
+    public int[] ledPins = { 3, 5, 7, 9, 11, 13, 15, 17, 19 }; // Pin numbers for the LEDs
+    bool[] buttonStates = new bool[9]; // Array to track the state of each button
+    bool[] ledStates = new bool[9]; // Array to track the state of each LED
+    bool[] isPressed = { false, false, false, false, false, false, false, false, false }; // Array to track if the LED is pressed
 
-    float[] lastButtonPressTimes = new float[5]; // Array to track the time of the last button press for each button
+    float[] lastButtonPressTimes = new float[9]; // Array to track the time of the last button press for each button
     float debounceDelay = 1f; // Minimum time between button presses to avoid debounce
 
     public PlayerInputPattern inputPattern;

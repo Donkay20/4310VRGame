@@ -9629,8 +9629,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114023058375386772, guid: bb5e6aea88a650f4a8317e74940b0ea4, type: 3}
+      propertyPath: debugLevel
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114023058375386772, guid: bb5e6aea88a650f4a8317e74940b0ea4, type: 3}
       propertyPath: ManagerState
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114023058375386772, guid: bb5e6aea88a650f4a8317e74940b0ea4, type: 3}
       propertyPath: autoReconnect
@@ -9650,7 +9654,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114023058375386772, guid: bb5e6aea88a650f4a8317e74940b0ea4, type: 3}
       propertyPath: threadIdleDelay
-      value: 20
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 114023058375386772, guid: bb5e6aea88a650f4a8317e74940b0ea4, type: 3}
       propertyPath: skipMessageQueue
@@ -16281,8 +16285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc08d59c9d596b4580ce69b8275543b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonPins: 020000000400000006000000080000000a000000
-  ledPins: 030000000500000007000000090000000b000000
+  buttonPins: 020000000400000006000000080000000a0000000c0000000e0000001000000012000000
+  ledPins: 030000000500000007000000090000000b0000000d0000000f0000001100000013000000
   inputPattern: {fileID: 976508730}
 --- !u!114 &1355799065 stripped
 MonoBehaviour:
