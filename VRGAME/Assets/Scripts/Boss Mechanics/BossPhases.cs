@@ -7,13 +7,13 @@ using UnityEngine.UI;
 public class BossPhases : MonoBehaviour
 {
     public readonly float LOOK_SPEED = 0.3f; //speed for boss to look at player
-    public readonly float ATTACK_COOLDOWN = 20f; //time btwn each attack
+    public readonly float ATTACK_COOLDOWN = 10f; //time btwn each attack before halfhealth
+    public readonly float ATTACK_COOLDOWN_2 = 7f; //time btwn each attack after halfhealth
     public GameObject missleSpawner, missle;
     public GameObject droneSpawner, drone;
     public GameObject beamAttack1, beamAttack2, flameAttack1, flameAttack2;
     private Vector3 direction;
     public float attackTimer; //timer for attacks
-
     void Start() {
         attackTimer = ATTACK_COOLDOWN;
     }
@@ -32,11 +32,15 @@ public class BossPhases : MonoBehaviour
     }
 
     private void Attack() {
-        attackTimer = ATTACK_COOLDOWN;
 
         Slider bossHP = GameObject.FindWithTag("EnemyHealth").GetComponent<Slider>();
         bool secondHalf = !(bossHP.value > (bossHP.maxValue / 2f));
 
+        if(!secondHalf)
+            attackTimer = ATTACK_COOLDOWN;
+        else
+            attackTimer = ATTACK_COOLDOWN_2;
+        
         switch (Random.Range(0,4)) {
             case 0: //Fire | Missle Barrage
                 StartCoroutine(MissleBarrage());
