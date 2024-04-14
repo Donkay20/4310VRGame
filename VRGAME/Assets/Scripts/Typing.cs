@@ -9,12 +9,12 @@ using Random = UnityEngine.Random;
 
 public class Typing : MonoBehaviour
 {
-    public TMP_Text display; //display text
-    private string currWord; //word to use
-    private bool backSpaced; //check if word backspaced
-    static private string sendWord; //word to send to anywhere
-    static private bool isCompleted; //check if word is completed
-    public char enterKey; //which key to enter with
+    [SerializeField] public TMP_Text display; //display text
+    [SerializeField] private string currWord; //word to use
+    [SerializeField] private bool backSpaced; //check if word backspaced
+    [SerializeField] private string sendWord; //word to send to anywhere
+    [SerializeField] private bool isCompleted; //check if word is completed
+    [SerializeField] public char enterKey; //which key to enter with
 
     //public AudioSource source; //audiosource for typing noises
     //public AudioClip type1; //type noise 1
