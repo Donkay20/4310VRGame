@@ -9,6 +9,7 @@ public class Capsules : MonoBehaviour
     public bool isStarted { get; protected set; } = false;
     public bool isRisingComplete { get; private set; } = false;
     public bool isDescendingComplete { get; private set; } = false;
+    public bool isAvailable { get; private set; } = true;
 
     [SerializeField] private float riseDistance = 2.5f; // Amount to rise up
     [SerializeField] private float riseDurationSecs = 5f; // Time in seconds to complete the movement
@@ -26,17 +27,15 @@ public class Capsules : MonoBehaviour
         originalPosition = transform.position;
         complexModels = this.transform.GetChild(0);
         complexModels.gameObject.SetActive(false);
-
-        if (isStarted)
-        {
-            StartMovingUp();
-        }
-
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(isStarted)
+        {
+            isAvailable = false;
+        }
         if (isStarted && !isRisingComplete && riseCoroutine == null)
         {
             StartMovingUp();
@@ -117,6 +116,7 @@ public class Capsules : MonoBehaviour
         transform.position = endPosition;
         isDescendingComplete = true;
         isRisingComplete = false;
+        isAvailable = true;
         complexModels.gameObject.SetActive(false);
         if (currentPattern != null)
         {

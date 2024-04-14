@@ -8,6 +8,7 @@ TagManager:
   - Anchor
   - LaserBullet
   - EnemyHealth
+  - PlayerStatsManager
   layers:
   - Default
   - TransparentFX

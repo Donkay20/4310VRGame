@@ -59,7 +59,7 @@ public class GunShoot : MonoBehaviour
         }
     }
 
-    private void ChargeEnergy(float amount)
+    public void ChargeEnergy(float amount)
     {
         energy += amount;
         if (energy > 100f)
@@ -77,7 +77,7 @@ public class GunShoot : MonoBehaviour
     private void UpdateStatusText()
     {
         if (statusText != null)
-            statusText.text = energy >= 100f ? "Ready to Shoot!" : $"Not Enough Energy: {energy}%";
+            statusText.text = energy >= 100f ? "Ready to Shoot!" : $"Energy: {energy}%";
     }
 
     private void GunShotAudio()

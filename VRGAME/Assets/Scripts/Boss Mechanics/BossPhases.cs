@@ -10,7 +10,7 @@ public class BossPhases : MonoBehaviour
     public readonly float ATTACK_COOLDOWN = 10f; //time btwn each attack before halfhealth
     public readonly float ATTACK_COOLDOWN_2 = 7f; //time btwn each attack after halfhealth
     public GameObject missleSpawner, missle;
-    public GameObject droneSpawner, drone;
+    public GameObject droneSpawner, drone, drone2;
     public GameObject beamAttack1, beamAttack2, flameAttack1, flameAttack2;
     private Vector3 direction;
     public float attackTimer; //timer for attacks
@@ -32,7 +32,6 @@ public class BossPhases : MonoBehaviour
     }
 
     private void Attack() {
-
         Slider bossHP = GameObject.FindWithTag("EnemyHealth").GetComponent<Slider>();
         bool secondHalf = !(bossHP.value > (bossHP.maxValue / 2f));
 
@@ -47,28 +46,35 @@ public class BossPhases : MonoBehaviour
                 Debug.Log("Flame Missle Barrage Activated.");
                 break;
             case 1: //Fire | Flamethrower
-                if (!secondHalf) {
-                    flameAttack1.SetActive(true);
-                    Debug.Log("Flamethrower attack activated.");
-                } else {
-                    flameAttack2.SetActive(true);
-                    Debug.Log("Enhanced Flamethrower attack activated.");
-                }
+                // if (!secondHalf) {
+                //     flameAttack1.SetActive(true);
+                //     Debug.Log("Flamethrower attack activated.");
+                // } else {
+                //     flameAttack2.SetActive(true);
+                //     Debug.Log("Enhanced Flamethrower attack activated.");
+                // }
+                StartCoroutine(MissleBarrage());
+                Debug.Log("Flame Missle Barrage Activated.");
+                break;
                 break;
             case 2: //Electric | Drone Barrage
                 GameObject eleDrone = Instantiate(drone, droneSpawner.transform.position, Quaternion.LookRotation(direction));
                 eleDrone.GetComponent<Homing>().target = Camera.main.gameObject;
-                eleDrone.GetComponent<DistanceDetection>().target = Camera.main.gameObject;
+                //eleDrone.GetComponent<DistanceDetection>().target = Camera.main.gameObject;
                 Debug.Log("Electric Drone Barrage activated.");
                 break;
             case 3: //Electric | Electric Beam
-                if (!secondHalf) {
-                    beamAttack1.SetActive(true);
-                    Debug.Log("Electric Beam attack activated.");
-                } else {
-                    beamAttack2.SetActive(true);
-                    Debug.Log("Enhanced Electric Beam attack activated.");
-                }
+                // if (!secondHalf) {
+                //     beamAttack1.SetActive(true);
+                //     Debug.Log("Electric Beam attack activated.");
+                // } else {
+                //     beamAttack2.SetActive(true);
+                //     Debug.Log("Enhanced Electric Beam attack activated.");
+                // }
+                GameObject eleDrone2 = Instantiate(drone2, droneSpawner.transform.position, Quaternion.LookRotation(direction));
+                eleDrone2.GetComponent<Homing>().target = Camera.main.gameObject;
+                //eleDrone2.GetComponent<DistanceDetection>().target = Camera.main.gameObject;
+                Debug.Log("Electric Drone Barrage activated.");
                 break;
         }
     }

@@ -8,6 +8,9 @@ public class CapsulesController : MonoBehaviour
     public static CapsulesController Instance;
     [SerializeField] private List<Pattern> patterns;
     [SerializeField] private List<Capsules> capsules = new List<Capsules>();
+    [SerializeField] private float activationCooldown = 7.5f;
+    [SerializeField] private GunShoot laserEnergyScript;
+    private float cooldownTimer = 0f;
 
     private void Awake()
     {
@@ -31,7 +34,7 @@ public class CapsulesController : MonoBehaviour
     // Call this method to randomly pick a capsule and assign a unique pattern to it
     public void ActivateOneRandomCapsule()
     {
-        List<Capsules> availableCapsules = capsules.Where(c => !c.isStarted).ToList();
+        List<Capsules> availableCapsules = capsules.Where(c => c.isAvailable).ToList();
         if (availableCapsules.Count == 0)
         {
             Debug.LogError("No capsules to assign patterns to!");
@@ -56,6 +59,13 @@ public class CapsulesController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        cooldownTimer += Time.deltaTime;
+        if (cooldownTimer >= activationCooldown)
+        {
+            cooldownTimer = 0f;  // Reset the cooldown timer
+            ActivateOneRandomCapsule();
+        }
+
         if (Input.GetKeyDown("g"))
         {
             ActivateOneRandomCapsule();
@@ -68,6 +78,7 @@ public class CapsulesController : MonoBehaviour
             if (capsule.isStarted && ComparePatterns(capsule.currentPattern.pattern, inputPattern))
             {
                 capsule.DeactivateCapsule();
+                laserEnergyScript.ChargeEnergy(25f);
                 break;
             }
         }
