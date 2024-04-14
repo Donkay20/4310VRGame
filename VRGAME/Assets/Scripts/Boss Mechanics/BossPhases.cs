@@ -56,7 +56,6 @@ public class BossPhases : MonoBehaviour
                 StartCoroutine(MissleBarrage());
                 Debug.Log("Flame Missle Barrage Activated.");
                 break;
-                break;
             case 2: //Electric | Drone Barrage
                 GameObject eleDrone = Instantiate(drone, droneSpawner.transform.position, Quaternion.LookRotation(direction));
                 eleDrone.GetComponent<Homing>().target = Camera.main.gameObject;

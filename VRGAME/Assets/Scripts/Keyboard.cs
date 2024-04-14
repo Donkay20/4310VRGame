@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Keyboard : MonoBehaviour
 {
     [SerializeField] PlayerStats player;                //assign to call player scripts
+    [SerializeField] Typing typer;                      //assign to call typing scripts
     private readonly float STRATAGEM_COOLDOWN = 10;     //change if needed
     private bool gameStarted;                           //nothing works unless this is true; denotes game start
     private bool stratagemInProgress;                   //checks to see if a stratagem is currently running
@@ -14,6 +15,23 @@ public class Keyboard : MonoBehaviour
     private string inputtedCode;                        //the code the player(s) input
     private string command;                             //the desired effect the player wants when they call on the stratagem
     private float stratagemCooldown;                    //cooldown
+
+    /*
+    * Here are the variables to set text: 
+    *     stratagemHealText.text = "";
+    *     stratagemRefuelText.text = "";
+    *     stratagemReloadText.text = "";
+    */
+    public TMP_Text stratagemHealText;                 
+    public TMP_Text stratagemRefuelText;                
+    public TMP_Text stratagemReloadText;
+
+    /*
+     * How to use Typing:
+     *     1. Use is IsReady() to check if text is available for retrieval (they hit enter, space, confirm key, etc.)
+     *     2. Use RecieveWord() to get the word that was typed in (compare with word + '~' == Typer.recieveWord())
+     *     3. Use ResetReady() to reset the typer
+     */
 
     void Update() {
         if (stratagemCooldown > 0) {
