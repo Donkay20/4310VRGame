@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyHitbox : MonoBehaviour
 {
     public EnemyHealthPH enemyHealth;
+    public ParticleSystem hitEffect;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,11 +22,19 @@ public class EnemyHitbox : MonoBehaviour
     {
         if (other.gameObject.tag == "Bullet")
         {
-            enemyHealth.Damage(0.1f);
+            enemyHealth.DamageByBullet();
+            if (hitEffect != null)
+            {
+                hitEffect.Play();
+            }
         }
         if (other.gameObject.tag == "LaserBullet")
         {
-            enemyHealth.Damage(1f);
+            enemyHealth.DamageByLaser();
+            if (hitEffect != null)
+            {
+                hitEffect.Play();
+            }
         }
     }
 

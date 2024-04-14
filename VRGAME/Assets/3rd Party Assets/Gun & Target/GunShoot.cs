@@ -19,93 +19,70 @@ public class GunShoot : MonoBehaviour
     [SerializeField] private Image battery2;
     [SerializeField] private Image battery3;
     [SerializeField] private Image battery4;
+    [SerializeField] private Text statusText;
 
-
-    private float lastShot;
-
-    public void Shoot()
-    {
-        if (lastShot > Time.time)
-        {
-            UpdateCooldownUI(lastShot - Time.time);
-            return;
-        }
-
-        lastShot = Time.time + shootDelay;
-        UpdateCooldownUI(shootDelay);
-        GunShotAudio();
-        Vector3 spawnPosition = bulletPosition.position + bulletPosition.forward * 10;
-        var bulletPrefab = Instantiate(bullet, spawnPosition, bulletPosition.rotation);
-        var bulletRb = bulletPrefab.GetComponent<Rigidbody>();
-        var direction = bulletPrefab.transform.TransformDirection(Vector3.forward);
-        bulletRb.AddForce(direction * bulletSpeed);
-        Destroy(bulletPrefab, 0.5f);
-    }
-
-    private void UpdateCooldownUI(float timeRemaining)
-    {
-        void UpdateText(Text textComponent)
-        {
-            if (textComponent != null)
-            {
-                textComponent.text = timeRemaining <= 0 ? "Ready!" : $"Cooldown: {Mathf.Max(0, timeRemaining).ToString("F2")}s";
-            }
-        }
-
-        UpdateText(cooldownText);
-        UpdateText(cooldownText2);
-        UpdateText(cooldownText3);
-        float quarterCooldown = shootDelay / 4f;
-
-        bool battery4Active = timeRemaining < quarterCooldown * 4;
-        bool battery3Active = timeRemaining < quarterCooldown * 3;
-        bool battery2Active = timeRemaining < quarterCooldown * 2;
-        bool battery1Active = timeRemaining < quarterCooldown;
-
-        SetBatteryActive(battery4Active, battery3Active, battery2Active, battery1Active);
-    }
-
-    private void SetBatteryActive(bool b4, bool b3, bool b2, bool b1)
-    {
-        if (battery1 != null) battery1.enabled = b1;
-        if (battery2 != null) battery2.enabled = b2;
-        if (battery3 != null) battery3.enabled = b3;
-        if (battery4 != null) battery4.enabled = b4;
-    }
-
+    public float energy = 0f;  // Current energy level of the gun as a percentage
 
     private void Update()
     {
-        if (lastShot > Time.time)
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            UpdateCooldownUI(lastShot - Time.time);
+            ChargeEnergy(25f);  // Charge energy by 25% when C is pressed
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && energy >= 100f)
+        {
+            Shoot();  // Shoot when space is pressed and energy is 100%
+        }
+
+        UpdateBatteryDisplay();  // Update the UI display of energy
+        UpdateStatusText();  // Update the status text
+    }
+
+    public void Shoot()
+    {
+        if (energy >= 100f)
+        {
+            Vector3 spawnPosition = bulletPosition.position + bulletPosition.forward * 10;
+            var bulletPrefab = Instantiate(bullet, spawnPosition, bulletPosition.rotation);
+            var bulletRb = bulletPrefab.GetComponent<Rigidbody>();
+            bulletRb.AddForce(bulletPrefab.transform.forward * bulletSpeed);
+            Destroy(bulletPrefab, 0.5f);
+
+            GunShotAudio();
+            energy = 0f;  // Reset energy after shooting
+            UpdateBatteryDisplay();
         }
         else
         {
-            if (cooldownText != null && cooldownText.text != "Ready!")
-            {
-                cooldownText.text = "Ready!";
-            }
-            if (cooldownText2 != null && cooldownText2.text != "Ready!")
-            {
-                cooldownText2.text = "Ready!";
-            }
-            if (cooldownText3 != null && cooldownText3.text != "Ready!")
-            {
-                cooldownText3.text = "Ready!";
-            }
-        }
-        if (Time.time >= lastShot)
-        {
-            SetBatteryActive(true, true, true, true);
+            Debug.Log("not enough energy");
         }
     }
 
-
-    private void GunShotAudio ()
+    public void ChargeEnergy(float amount)
     {
-        var random = UnityEngine.Random.Range(0.8f, 1.2f);
-        audiosource.pitch = random;
+        energy += amount;
+        if (energy > 100f)
+            energy = 100f;  // Cap energy at 100%
+    }
+
+    private void UpdateBatteryDisplay()
+    {
+        battery1.enabled = energy >= 25f;
+        battery2.enabled = energy >= 50f;
+        battery3.enabled = energy >= 75f;
+        battery4.enabled = energy >= 100f;
+    }
+
+    private void UpdateStatusText()
+    {
+        if (statusText != null)
+            statusText.text = energy >= 100f ? "Ready to Shoot!" : $"Energy: {energy}%";
+    }
+
+    private void GunShotAudio()
+    {
+        audiosource.pitch = UnityEngine.Random.Range(0.8f, 1.2f);
         audiosource.Play();
     }
 }

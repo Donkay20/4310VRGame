@@ -13,6 +13,7 @@ public class Homing : MonoBehaviour
 
     void Start()
     {
+        //GameObject.FindGameObjectsWithTag("Player");
     }
 
     void Update()
