@@ -11,7 +11,7 @@ public class BossPhases : MonoBehaviour
     public readonly float ATTACK_COOLDOWN_2 = 10f; //time btwn each attack after halfhealth
     public GameObject missleSpawner, missle;
     public GameObject droneSpawner, drone, drone2;
-    public GameObject beamAttack1, beamAttack2, flameAttack1, flameAttack2;
+    // public GameObject beamAttack1, beamAttack2, flameAttack1, flameAttack2;
     private Vector3 direction;
     public float attackTimer; //timer for attacks
     void Start()
@@ -67,6 +67,7 @@ public class BossPhases : MonoBehaviour
             case 2:
                 GameObject eleDrone2 = Instantiate(drone2, droneSpawner.transform.position, Quaternion.LookRotation(direction));
                 eleDrone2.GetComponent<Homing>().target = Camera.main.gameObject;
+                //eleDrone2.GetComponent<DistanceDetection>().speed = 0.3f;
                 //eleDrone2.GetComponent<DistanceDetection>().target = Camera.main.gameObject;
                 Debug.Log("Electric Drone2 Barrage activated.");
                 break;
@@ -105,6 +106,7 @@ public class BossPhases : MonoBehaviour
             GameObject fireMissle = Instantiate(missle, missleSpawner.transform.position, Quaternion.LookRotation(direction));
             fireMissle.GetComponent<Homing>().target = Camera.main.gameObject;
             fireMissle.GetComponent<DistanceDetection>().target = Camera.main.gameObject;
+            fireMissle.GetComponent<DistanceDetection>().speed = 0.3f;
             numberOfMissles--;
             yield return new WaitForSeconds(3);
         }
@@ -113,9 +115,9 @@ public class BossPhases : MonoBehaviour
     private void DisableAttack()
     {
         StopAllCoroutines();
-        flameAttack1.SetActive(false);
-        flameAttack2.SetActive(false);
-        beamAttack1.SetActive(false);
-        beamAttack2.SetActive(false);
+        // flameAttack1.SetActive(false);
+        // flameAttack2.SetActive(false);
+        // beamAttack1.SetActive(false);
+        // beamAttack2.SetActive(false);
     }
 }

@@ -12,7 +12,7 @@ public class ButtonLEDController : MonoBehaviour
     bool[] isPressed = { false, false, false, false, false, false, false, false, false }; // Array to track if the LED is pressed
 
     float[] lastButtonPressTimes = new float[9]; // Array to track the time of the last button press for each button
-    float debounceDelay = 1f; // Minimum time between button presses to avoid debounce
+    public float debounceDelay = 1f; // Minimum time between button presses to avoid debounce
 
     public PlayerInputPattern inputPattern;
 

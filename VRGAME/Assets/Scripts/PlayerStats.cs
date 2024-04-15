@@ -58,15 +58,15 @@ public class PlayerStats : MonoBehaviour
         {
             moveProvider.enabled = currentFuel > 0;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             Damage(10); // Simulate taking 10 damage
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             Heal(10); // Simulate healing 10 health
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        if (Input.GetKeyDown(KeyCode.Alpha6))
         {
             Refuel(); // Refuel to maximum fuel
         }
@@ -74,7 +74,7 @@ public class PlayerStats : MonoBehaviour
         {
             FireBullet(); // Simulate firing a bullet
         }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
+        if (Input.GetKeyDown(KeyCode.Alpha7))
         {
             Reload(); // Reload the gun
         }

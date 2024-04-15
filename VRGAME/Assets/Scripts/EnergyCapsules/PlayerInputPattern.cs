@@ -14,7 +14,7 @@ public class PlayerInputPattern : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha9))
+        if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl))
         {
             CapsulesController.Instance.CheckPatternsInCapsules(inputPattern);
         }

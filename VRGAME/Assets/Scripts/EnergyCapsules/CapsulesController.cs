@@ -66,10 +66,10 @@ public class CapsulesController : MonoBehaviour
             ActivateOneRandomCapsule();
         }
 
-        if (Input.GetKeyDown("g"))
-        {
-            ActivateOneRandomCapsule();
-        }
+        // if (Input.GetKeyDown("g"))
+        // {
+        //     ActivateOneRandomCapsule();
+        // }
     }
     public void CheckPatternsInCapsules(Vector3[] inputPattern)
     {
