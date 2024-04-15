@@ -10,6 +10,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float maxHealth = 100f;
     private float currentHealth;
     [SerializeField] private Slider healthSlider;
+    [SerializeField] private GameObject endUI;
 
     [Header("Fuel System Settings")]
     [SerializeField] private float maxFuel = 100f;
@@ -76,6 +77,11 @@ public class PlayerStats : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             Reload(); // Reload the gun
+        }
+        if(currentHealth <= 0f)
+        {
+            Time.timeScale = 0;
+            endUI.SetActive(true);
         }
     }
 

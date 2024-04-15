@@ -156,7 +156,7 @@ MonoBehaviour:
   missle: {fileID: 2600650135754437037, guid: 3c7ac5184c3a87e4e9388703f279df93, type: 3}
   droneSpawner: {fileID: 3534741349248639586}
   drone: {fileID: 5608450033159286899, guid: 8e944e871138e2747a164a9a78a1058e, type: 3}
-  drone2: {fileID: 5608450033159286899, guid: 8551894fbeeb2c848be8fa0c1236cdfa, type: 3}
+  drone2: {fileID: 5608450033159286899, guid: aa1ab2972dde734429f060c0f17a36bb, type: 3}
   beamAttack1: {fileID: 9099813896510972399}
   beamAttack2: {fileID: 6580172564958508758}
   flameAttack1: {fileID: 6232621764181660717}

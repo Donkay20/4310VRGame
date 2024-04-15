@@ -8,6 +8,7 @@ public class EnemyHealthPH : MonoBehaviour
     public Slider slider; // Assign your UI Slider in the inspector
     public float decreaseAmountbyBullet = 0.5f; // damage by bullet
     public float decreaseAmountbyLaser = 25f; // damage by laser
+    [SerializeField] private GameObject endUI;
     private void Start()
     {
         InitializeHealth();
@@ -15,7 +16,11 @@ public class EnemyHealthPH : MonoBehaviour
 
     void Update()
     {
-
+        if(slider.value <= 1f)
+        {
+            Time.timeScale = 0;
+            endUI.SetActive(true);
+        }
     }
 
     public void Damage(float amount)
@@ -33,7 +38,7 @@ public class EnemyHealthPH : MonoBehaviour
     }
     private void InitializeHealth()
     {
-        slider.maxValue = 100; // Set the maximum health
+        slider.maxValue = 100f; // Set the maximum health
         slider.value = slider.maxValue; // Start with full health
     }
 }
