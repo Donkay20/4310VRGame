@@ -29,22 +29,24 @@ public class ButtonLEDController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            inputPattern.UpdatePatternElement(0, 'x', 0);
-            inputPattern.UpdatePatternElement(0, 'y', 0);
-            inputPattern.UpdatePatternElement(0, 'z', 0);
-            inputPattern.UpdatePatternElement(1, 'x', 0);
-            inputPattern.UpdatePatternElement(1, 'y', 0);
-            inputPattern.UpdatePatternElement(1, 'z', 0);
-            inputPattern.UpdatePatternElement(2, 'x', 0);
-            inputPattern.UpdatePatternElement(2, 'y', 0);
-            inputPattern.UpdatePatternElement(2, 'z', 0);
-            for (int i = 0; i < buttonPins.Length; i++)
-            {
-                UduinoManager.Instance.digitalWrite(0);
-            }
-        }
+        // if (Input.GetKeyDown(KeyCode.Alpha0))
+        // {
+        //     inputPattern.UpdatePatternElement(0, 'x', 0);
+        //     inputPattern.UpdatePatternElement(0, 'y', 0);
+        //     inputPattern.UpdatePatternElement(0, 'z', 0);
+        //     inputPattern.UpdatePatternElement(1, 'x', 0);
+        //     inputPattern.UpdatePatternElement(1, 'y', 0);
+        //     inputPattern.UpdatePatternElement(1, 'z', 0);
+        //     inputPattern.UpdatePatternElement(2, 'x', 0);
+        //     inputPattern.UpdatePatternElement(2, 'y', 0);
+        //     inputPattern.UpdatePatternElement(2, 'z', 0);
+        //     for (int i = 0; i < buttonPins.Length; i++)
+        //     {
+        //         ledStates[i] = false;
+
+        //         UduinoManager.Instance.digitalWrite(ledPins[i], ledStates[i] ? 255 : 0);
+        //     }
+        // }
         // Check each button
         for (int i = 0; i < buttonPins.Length; i++)
         {
