@@ -66,19 +66,23 @@ public class CapsulesController : MonoBehaviour
             ActivateOneRandomCapsule();
         }
 
-        if (Input.GetKeyDown("g"))
-        {
-            ActivateOneRandomCapsule();
-        }
+        // if (Input.GetKeyDown("g"))
+        // {
+        //     ActivateOneRandomCapsule();
+        // }
     }
     public void CheckPatternsInCapsules(Vector3[] inputPattern)
     {
+        
         foreach (Capsules capsule in capsules)
         {
             if (capsule.isStarted && ComparePatterns(capsule.currentPattern.pattern, inputPattern))
             {
                 capsule.DeactivateCapsule();
                 laserEnergyScript.ChargeEnergy(25f);
+                
+                //add level up here
+
                 break;
             }
         }

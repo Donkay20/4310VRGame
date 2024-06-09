@@ -8,16 +8,28 @@ public class PlayerInputPattern : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("f"))
+        if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl))
         {
             CapsulesController.Instance.CheckPatternsInCapsules(inputPattern);
         }
+        // if (Input.GetKeyDown(KeyCode.Alpha0))
+        // {
+        //     UpdatePatternElement(0, 'x', 0);
+        //     UpdatePatternElement(0, 'y', 0);
+        //     UpdatePatternElement(0, 'z', 0);
+        //     UpdatePatternElement(1, 'x', 0);
+        //     UpdatePatternElement(1, 'y', 0);
+        //     UpdatePatternElement(1, 'z', 0);
+        //     UpdatePatternElement(2, 'x', 0);
+        //     UpdatePatternElement(2, 'y', 0);
+        //     UpdatePatternElement(2, 'z', 0);
+        // }
     }
 
     public void UpdatePatternElement(int row, char component, float value)

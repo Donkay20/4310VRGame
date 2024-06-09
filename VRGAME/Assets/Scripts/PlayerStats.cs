@@ -10,6 +10,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float maxHealth = 100f;
     private float currentHealth;
     [SerializeField] private Slider healthSlider;
+    [SerializeField] private GameObject endUI;
 
     [Header("Fuel System Settings")]
     [SerializeField] private float maxFuel = 100f;
@@ -57,15 +58,15 @@ public class PlayerStats : MonoBehaviour
         {
             moveProvider.enabled = currentFuel > 0;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             Damage(10); // Simulate taking 10 damage
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             Heal(10); // Simulate healing 10 health
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        if (Input.GetKeyDown(KeyCode.Alpha6))
         {
             Refuel(); // Refuel to maximum fuel
         }
@@ -73,9 +74,14 @@ public class PlayerStats : MonoBehaviour
         {
             FireBullet(); // Simulate firing a bullet
         }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
+        if (Input.GetKeyDown(KeyCode.Alpha7))
         {
             Reload(); // Reload the gun
+        }
+        if(currentHealth <= 0f)
+        {
+            Time.timeScale = 0;
+            endUI.SetActive(true);
         }
     }
 

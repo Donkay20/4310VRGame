@@ -12,7 +12,7 @@ public class ButtonLEDController : MonoBehaviour
     bool[] isPressed = { false, false, false, false, false, false, false, false, false }; // Array to track if the LED is pressed
 
     float[] lastButtonPressTimes = new float[9]; // Array to track the time of the last button press for each button
-    float debounceDelay = 1f; // Minimum time between button presses to avoid debounce
+    public float debounceDelay = 1f; // Minimum time between button presses to avoid debounce
 
     public PlayerInputPattern inputPattern;
 
@@ -29,6 +29,24 @@ public class ButtonLEDController : MonoBehaviour
 
     void Update()
     {
+        // if (Input.GetKeyDown(KeyCode.Alpha0))
+        // {
+        //     inputPattern.UpdatePatternElement(0, 'x', 0);
+        //     inputPattern.UpdatePatternElement(0, 'y', 0);
+        //     inputPattern.UpdatePatternElement(0, 'z', 0);
+        //     inputPattern.UpdatePatternElement(1, 'x', 0);
+        //     inputPattern.UpdatePatternElement(1, 'y', 0);
+        //     inputPattern.UpdatePatternElement(1, 'z', 0);
+        //     inputPattern.UpdatePatternElement(2, 'x', 0);
+        //     inputPattern.UpdatePatternElement(2, 'y', 0);
+        //     inputPattern.UpdatePatternElement(2, 'z', 0);
+        //     for (int i = 0; i < buttonPins.Length; i++)
+        //     {
+        //         ledStates[i] = false;
+
+        //         UduinoManager.Instance.digitalWrite(ledPins[i], ledStates[i] ? 255 : 0);
+        //     }
+        // }
         // Check each button
         for (int i = 0; i < buttonPins.Length; i++)
         {
