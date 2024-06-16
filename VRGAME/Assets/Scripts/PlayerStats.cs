@@ -31,10 +31,15 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private Text bulletsTextMax;
 
     [Header("Level System Settings")]
-    private int currentLevel;
     [SerializeField] private Text levelText;
+    private int currentLevel;
     [SerializeField] private Animator levelTextAnim;
     [SerializeField] private TMP_Text upgradeText;
+
+    [Header("Stun Settings")]
+    [SerializeField] private GameObject stunScreen;
+    private bool stunned;
+    private int savedBullets;
 
 
     void Start()
@@ -43,6 +48,7 @@ public class PlayerStats : MonoBehaviour
         currentHealth = maxHealth;
         currentFuel = maxFuel;
         currentBullets = maxBullets;
+        stunned = false;
         InitializeSliders();
         UpdateBulletsText();
     }
@@ -55,7 +61,7 @@ public class PlayerStats : MonoBehaviour
 
         if (fuelSlider != null)
         {
-            fuelSlider.fillAmount = 1.0f; ;
+            fuelSlider.fillAmount = 1.0f;
         }
     }
 
@@ -86,10 +92,34 @@ public class PlayerStats : MonoBehaviour
         {
             Reload(); // Reload the gun
         }
+        if (stunned)
+        {
+            moveProvider.enabled = false;
+            CheckStunInput(); // take out of stun if this is the case
+        }
         if(currentHealth <= 0f)
         {
             Time.timeScale = 0;
             endUI.SetActive(true);
+        }
+    }
+
+    public void Stun()
+    {
+        stunned = true;
+        stunScreen.SetActive(true);
+        savedBullets = currentBullets;
+        currentBullets = 0;
+    }
+
+    public void CheckStunInput()
+    {
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            moveProvider.enabled = true;
+            currentBullets = savedBullets;
+            stunned = false;
+            stunScreen.SetActive(false);
         }
     }
 
@@ -101,8 +131,8 @@ public class PlayerStats : MonoBehaviour
         {
             healthSlider.fillAmount = currentHealth / maxHealth;
             Color healthColor = healthSlider.color;
-            healthColor.g = 1 - (currentHealth / maxHealth);
-            healthColor.b = 1 - (currentHealth / maxHealth);
+            healthColor.g = currentHealth / maxHealth;
+            healthColor.b = currentHealth / maxHealth;
             healthSlider.color = healthColor;
         }
         Debug.Log("Current Health: " + currentHealth);
@@ -116,8 +146,8 @@ public class PlayerStats : MonoBehaviour
         {
             healthSlider.fillAmount = currentHealth / maxHealth;
             Color healthColor = healthSlider.color;
-            healthColor.g = 1 - (currentHealth / maxHealth);
-            healthColor.b = 1 - (currentHealth / maxHealth);
+            healthColor.g = currentHealth / maxHealth;
+            healthColor.b = currentHealth / maxHealth;
             healthSlider.color = healthColor;
         }
         Debug.Log("Current Health: " + currentHealth);
@@ -135,8 +165,8 @@ public class PlayerStats : MonoBehaviour
             {
                 fuelSlider.fillAmount = currentFuel / maxFuel;
                 Color fuelColor = fuelSlider.color;
-                fuelColor.g = 1 - (currentFuel / maxFuel);
-                fuelColor.b = 1 - (currentFuel / maxFuel);
+                fuelColor.g = currentFuel / maxFuel;
+                fuelColor.b = currentFuel / maxFuel;
                 fuelSlider.color = fuelColor;
             }
             Debug.Log("Current Fuel: " + currentFuel);
@@ -150,8 +180,8 @@ public class PlayerStats : MonoBehaviour
         {
             fuelSlider.fillAmount = currentFuel / maxFuel;
             Color fuelColor = fuelSlider.color;
-            fuelColor.g = 1 - (currentFuel / maxFuel);
-            fuelColor.b = 1 - (currentFuel / maxFuel);
+            fuelColor.g = currentFuel / maxFuel;
+            fuelColor.b = currentFuel / maxFuel;
             fuelSlider.color = fuelColor;
         }
         Debug.Log("Fuel tank refueled to " + currentFuel);
@@ -180,7 +210,7 @@ public class PlayerStats : MonoBehaviour
 
     public void LevelUp()
     {
-        levelTextAnim.Play("FadeIn");
+        //levelTextAnim.Play("FadeIn");
         currentLevel += 1;
         levelText.text = "Level " + currentLevel;
         Debug.Log("Leveled up. Current level: " + currentLevel);
@@ -192,7 +222,7 @@ public class PlayerStats : MonoBehaviour
             currentBullets += change;
             UpdateBulletsText();
 
-            upgradeText.text = "LEVEL UP: +10% MAX BULLETS";
+            upgradeText.text += "+10% MAX BULLETS\n";
             Debug.Log("LEVEL UP: +10% MAX BULLETS ");
         }
         else if (currentLevel == 3 || currentLevel == 6 || currentLevel == 9 || currentLevel == 12)
@@ -202,7 +232,7 @@ public class PlayerStats : MonoBehaviour
             currentHealth += change;
             if (healthSlider != null) healthSlider.fillAmount = currentHealth / maxHealth;
 
-            upgradeText.text = "LEVEL UP: +10% MAX HEALTH";
+            upgradeText.text = "+10% MAX HEALTH\n";
             Debug.Log("LEVEL UP: +10% MAX HEALTH ");
         }
         else if (currentLevel == 4 || currentLevel == 7 || currentLevel == 10 || currentLevel == 13)
@@ -212,30 +242,33 @@ public class PlayerStats : MonoBehaviour
             currentFuel += change;
             if (fuelSlider != null) fuelSlider.fillAmount = currentFuel / maxFuel;
 
-            upgradeText.text = "LEVEL UP: +10% MAX FUEL";
+            upgradeText.text = "+10% MAX FUEL\n";
             Debug.Log("LEVEL UP: +10% MAX FUEL ");
         }
 
-        levelTextAnim.Play("FadeOut");
+        //levelTextAnim.Play("FadeOut");
     }
 
     private void UpdateBulletsText()
     {
-        if (bulletsText != null)
+        if (!stunned)
         {
-            bulletsText.text = "" + currentBullets;
-        }
-        if (bulletsTextSide1 != null)
-        {
-            bulletsTextSide1.text = "" + currentBullets;
-        }
-        if (bulletsTextSide2 != null)
-        {
-            bulletsTextSide2.text = "" + currentBullets;
-        }
-        if (bulletsTextMax != null)
-        {
-            bulletsTextMax.text = "/" + maxBullets;
+            if (bulletsText != null)
+            {
+                bulletsText.text = "" + currentBullets;
+            }
+            if (bulletsTextSide1 != null)
+            {
+                bulletsTextSide1.text = "" + currentBullets;
+            }
+            if (bulletsTextSide2 != null)
+            {
+                bulletsTextSide2.text = "" + currentBullets;
+            }
+            if (bulletsTextMax != null)
+            {
+                bulletsTextMax.text = "/" + maxBullets;
+            }
         }
     }
 

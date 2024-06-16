@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
+using TMPro;
 
 public class CapsulesController : MonoBehaviour
 {
@@ -12,6 +14,9 @@ public class CapsulesController : MonoBehaviour
     [SerializeField] private GunShoot laserEnergyScript;
     [SerializeField] private PlayerStats playerStatsScript;
     private float cooldownTimer = 0f;
+
+    [Space, SerializeField] private AudioSource correctSound;
+    [Space, SerializeField] private AudioSource wrongSound;
 
     private void Awake()
     {
@@ -74,7 +79,7 @@ public class CapsulesController : MonoBehaviour
     }
     public void CheckPatternsInCapsules(Vector3[] inputPattern)
     {
-        
+        bool patternFound = false;
         foreach (Capsules capsule in capsules)
         {
             if (capsule.isStarted && ComparePatterns(capsule.currentPattern.pattern, inputPattern))
@@ -84,9 +89,17 @@ public class CapsulesController : MonoBehaviour
 
                 //add level up here
                 playerStatsScript.LevelUp();
+                patternFound = true;
+                if(correctSound != null) correctSound.Play();
 
                 break;
             }
+        }
+
+        if (!patternFound)// if unsuccessful, stun player
+        {
+            playerStatsScript.Stun();
+            if (wrongSound != null) wrongSound.Play();
         }
     }
     private bool ComparePatterns(Vector3[] pattern1, Vector3[] pattern2)

@@ -27,6 +27,9 @@ public class Keyboard : MonoBehaviour
     public TMP_Text stratagemRefuelText;
     public TMP_Text stratagemReloadText;
 
+    [Space, SerializeField] private AudioSource correctSound;
+    [Space, SerializeField] private AudioSource wrongSound;
+
     /*
      * How to use Typing:
      *     1. Use is IsReady() to check if text is available for retrieval (they hit enter, space, confirm key, etc.)
@@ -57,6 +60,10 @@ public class Keyboard : MonoBehaviour
             if (stratagemInProgress && inputtedCode.Equals(stratagemCode + '~'))
             {  // Check if it matches the stratagem code
                 ExecuteStratagem();  // Execute the stratagem action
+            }
+            else
+            {
+                wrongSound.Play();
             }
             typer.ResetReady();  // Reset the Typing script for new input
         }
@@ -127,12 +134,15 @@ public class Keyboard : MonoBehaviour
         {
             case "heal":
                 player.Heal(50);  // Adjust the healing amount as needed
+                correctSound.Play();
                 break;
             case "refuel":
                 player.Refuel();
+                correctSound.Play();
                 break;
             case "reload":
                 player.Reload();
+                correctSound.Play();
                 break;
         }
         stratagemInProgress = false;
