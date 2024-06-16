@@ -38,6 +38,10 @@ public class DistanceDetection : MonoBehaviour
             distance = direction.magnitude;
         }
 
+        if (distance <= stopDistance*1.2)
+        {
+            if (hitEffect != null) hitEffect.Play(); //play fx early to show player is in danger
+        }
 
         if (hp <= 0f)
         {
@@ -70,18 +74,12 @@ public class DistanceDetection : MonoBehaviour
     {
         if (other.gameObject.tag == "Bullet")
         {
-            if (hitEffect != null)
-            {
-                hitEffect.Play();
-            }
+            if (hitEffect != null) hitEffect.Play();
             hp -= 0.1f;
         }
         if (other.gameObject.tag == "LaserBullet")
         {
-            if (hitEffect != null)
-            {
-                hitEffect.Play();
-            }
+            if (hitEffect != null) hitEffect.Play();
             hp -= 1f;
         }
     }
