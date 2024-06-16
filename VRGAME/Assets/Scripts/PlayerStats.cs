@@ -97,7 +97,14 @@ public class PlayerStats : MonoBehaviour
     {
         currentHealth -= amount;
         if (currentHealth < 0) currentHealth = 0;
-        if (healthSlider != null) healthSlider.fillAmount = currentHealth/maxHealth;
+        if (healthSlider != null)
+        {
+            healthSlider.fillAmount = currentHealth / maxHealth;
+            Color healthColor = healthSlider.color;
+            healthColor.g = 1 - (currentHealth / maxHealth);
+            healthColor.b = 1 - (currentHealth / maxHealth);
+            healthSlider.color = healthColor;
+        }
         Debug.Log("Current Health: " + currentHealth);
     }
 
@@ -105,7 +112,14 @@ public class PlayerStats : MonoBehaviour
     {
         currentHealth += amount;
         if (currentHealth > maxHealth) currentHealth = maxHealth;
-        if (healthSlider != null) healthSlider.fillAmount = currentHealth / maxHealth;
+        if (healthSlider != null)
+        {
+            healthSlider.fillAmount = currentHealth / maxHealth;
+            Color healthColor = healthSlider.color;
+            healthColor.g = 1 - (currentHealth / maxHealth);
+            healthColor.b = 1 - (currentHealth / maxHealth);
+            healthSlider.color = healthColor;
+        }
         Debug.Log("Current Health: " + currentHealth);
     }
 
@@ -117,7 +131,14 @@ public class PlayerStats : MonoBehaviour
             currentFuel -= fuelConsumptionRate;
             fuelTimer = 0;
             if (currentFuel < 0) currentFuel = 0;
-            if (fuelSlider != null) fuelSlider.fillAmount = currentFuel / maxFuel;
+            if (fuelSlider != null)
+            {
+                fuelSlider.fillAmount = currentFuel / maxFuel;
+                Color fuelColor = fuelSlider.color;
+                fuelColor.g = 1 - (currentFuel / maxFuel);
+                fuelColor.b = 1 - (currentFuel / maxFuel);
+                fuelSlider.color = fuelColor;
+            }
             Debug.Log("Current Fuel: " + currentFuel);
         }
     }
@@ -125,7 +146,14 @@ public class PlayerStats : MonoBehaviour
     public void Refuel()
     {
         currentFuel = maxFuel;
-        if (fuelSlider != null) fuelSlider.fillAmount = currentFuel / maxFuel;
+        if (fuelSlider != null)
+        {
+            fuelSlider.fillAmount = currentFuel / maxFuel;
+            Color fuelColor = fuelSlider.color;
+            fuelColor.g = 1 - (currentFuel / maxFuel);
+            fuelColor.b = 1 - (currentFuel / maxFuel);
+            fuelSlider.color = fuelColor;
+        }
         Debug.Log("Fuel tank refueled to " + currentFuel);
     }
 
