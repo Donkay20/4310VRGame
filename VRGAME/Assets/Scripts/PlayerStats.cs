@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets; 
@@ -9,7 +10,7 @@ public class PlayerStats : MonoBehaviour
     [Header("Player Health Settings")]
     [SerializeField] private float maxHealth = 100f;
     private float currentHealth;
-    [SerializeField] private Slider healthSlider;
+    [SerializeField] private Image healthSlider;
     [SerializeField] private GameObject endUI;
 
     [Header("Fuel System Settings")]
@@ -19,7 +20,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private DynamicMoveProvider moveProvider; // reference to the movement script of XR toolkit
     private float currentFuel;
     private float fuelTimer;
-    [SerializeField] private Slider fuelSlider;
+    [SerializeField] private Image fuelSlider;
 
     [Header("Bullet Magazine Settings")]
     [SerializeField] private int maxBullets = 30;
@@ -27,9 +28,18 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private Text bulletsText;
     [SerializeField] private Text bulletsTextSide1;
     [SerializeField] private Text bulletsTextSide2;
+    [SerializeField] private Text bulletsTextMax;
+
+    [Header("Level System Settings")]
+    private int currentLevel;
+    [SerializeField] private Text levelText;
+    [SerializeField] private Animator levelTextAnim;
+    [SerializeField] private TMP_Text upgradeText;
+
 
     void Start()
     {
+        currentLevel = 1;
         currentHealth = maxHealth;
         currentFuel = maxFuel;
         currentBullets = maxBullets;
@@ -40,14 +50,12 @@ public class PlayerStats : MonoBehaviour
     {
         if (healthSlider != null)
         {
-            healthSlider.maxValue = maxHealth;
-            healthSlider.value = currentHealth;
+            healthSlider.fillAmount = 1.0f;
         }
 
         if (fuelSlider != null)
         {
-            fuelSlider.maxValue = maxFuel;
-            fuelSlider.value = currentFuel;
+            fuelSlider.fillAmount = 1.0f; ;
         }
     }
 
@@ -89,7 +97,7 @@ public class PlayerStats : MonoBehaviour
     {
         currentHealth -= amount;
         if (currentHealth < 0) currentHealth = 0;
-        if (healthSlider != null) healthSlider.value = currentHealth;
+        if (healthSlider != null) healthSlider.fillAmount = currentHealth/maxHealth;
         Debug.Log("Current Health: " + currentHealth);
     }
 
@@ -97,7 +105,7 @@ public class PlayerStats : MonoBehaviour
     {
         currentHealth += amount;
         if (currentHealth > maxHealth) currentHealth = maxHealth;
-        if (healthSlider != null) healthSlider.value = currentHealth;
+        if (healthSlider != null) healthSlider.fillAmount = currentHealth / maxHealth;
         Debug.Log("Current Health: " + currentHealth);
     }
 
@@ -109,7 +117,7 @@ public class PlayerStats : MonoBehaviour
             currentFuel -= fuelConsumptionRate;
             fuelTimer = 0;
             if (currentFuel < 0) currentFuel = 0;
-            if (fuelSlider != null) fuelSlider.value = currentFuel;
+            if (fuelSlider != null) fuelSlider.fillAmount = currentFuel / maxFuel;
             Debug.Log("Current Fuel: " + currentFuel);
         }
     }
@@ -117,7 +125,7 @@ public class PlayerStats : MonoBehaviour
     public void Refuel()
     {
         currentFuel = maxFuel;
-        if (fuelSlider != null) fuelSlider.value = currentFuel;
+        if (fuelSlider != null) fuelSlider.fillAmount = currentFuel / maxFuel;
         Debug.Log("Fuel tank refueled to " + currentFuel);
     }
 
@@ -142,6 +150,47 @@ public class PlayerStats : MonoBehaviour
         Debug.Log("Magazine reloaded. Bullets available: " + currentBullets);
     }
 
+    public void LevelUp()
+    {
+        levelTextAnim.Play("FadeIn");
+        currentLevel += 1;
+        levelText.text = "Level " + currentLevel;
+        Debug.Log("Leveled up. Current level: " + currentLevel);
+
+        if (currentLevel == 2 || currentLevel == 5 || currentLevel == 8 || currentLevel == 11)
+        {
+            int change = (int)(maxBullets * 0.1);
+            maxBullets += change;
+            currentBullets += change;
+            UpdateBulletsText();
+
+            upgradeText.text = "LEVEL UP: +10% MAX BULLETS";
+            Debug.Log("LEVEL UP: +10% MAX BULLETS ");
+        }
+        else if (currentLevel == 3 || currentLevel == 6 || currentLevel == 9 || currentLevel == 12)
+        {
+            int change = (int)(maxHealth * 0.1);
+            maxHealth += change;
+            currentHealth += change;
+            if (healthSlider != null) healthSlider.fillAmount = currentHealth / maxHealth;
+
+            upgradeText.text = "LEVEL UP: +10% MAX HEALTH";
+            Debug.Log("LEVEL UP: +10% MAX HEALTH ");
+        }
+        else if (currentLevel == 4 || currentLevel == 7 || currentLevel == 10 || currentLevel == 13)
+        {
+            int change = (int)(maxFuel * 0.1);
+            maxFuel += change;
+            currentFuel += change;
+            if (fuelSlider != null) fuelSlider.fillAmount = currentFuel / maxFuel;
+
+            upgradeText.text = "LEVEL UP: +10% MAX FUEL";
+            Debug.Log("LEVEL UP: +10% MAX FUEL ");
+        }
+
+        levelTextAnim.Play("FadeOut");
+    }
+
     private void UpdateBulletsText()
     {
         if (bulletsText != null)
@@ -155,6 +204,10 @@ public class PlayerStats : MonoBehaviour
         if (bulletsTextSide2 != null)
         {
             bulletsTextSide2.text = "" + currentBullets;
+        }
+        if (bulletsTextMax != null)
+        {
+            bulletsTextMax.text = "/" + maxBullets;
         }
     }
 

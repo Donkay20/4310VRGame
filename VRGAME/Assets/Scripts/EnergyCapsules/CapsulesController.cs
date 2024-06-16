@@ -10,6 +10,7 @@ public class CapsulesController : MonoBehaviour
     [SerializeField] private List<Capsules> capsules = new List<Capsules>();
     [SerializeField] private float activationCooldown = 7.5f;
     [SerializeField] private GunShoot laserEnergyScript;
+    [SerializeField] private PlayerStats playerStatsScript;
     private float cooldownTimer = 0f;
 
     private void Awake()
@@ -80,8 +81,9 @@ public class CapsulesController : MonoBehaviour
             {
                 capsule.DeactivateCapsule();
                 laserEnergyScript.ChargeEnergy(25f);
-                
+
                 //add level up here
+                playerStatsScript.LevelUp();
 
                 break;
             }
