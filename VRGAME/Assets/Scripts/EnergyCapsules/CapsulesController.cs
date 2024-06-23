@@ -101,6 +101,7 @@ public class CapsulesController : MonoBehaviour
             playerStatsScript.Stun();
             if (wrongSound != null) wrongSound.Play();
         }
+        patternFound = false;
     }
     private bool ComparePatterns(Vector3[] pattern1, Vector3[] pattern2)
     {

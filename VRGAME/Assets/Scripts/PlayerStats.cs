@@ -38,8 +38,10 @@ public class PlayerStats : MonoBehaviour
 
     [Header("Stun Settings")]
     [SerializeField] private GameObject stunScreen;
+    [SerializeField] private TMP_Text stunText;
     private bool stunned;
     private int savedBullets;
+    public int stunCounter;
 
 
     void Start()
@@ -49,6 +51,7 @@ public class PlayerStats : MonoBehaviour
         currentFuel = maxFuel;
         currentBullets = maxBullets;
         stunned = false;
+        stunCounter = 0;
         InitializeSliders();
         UpdateBulletsText();
     }
@@ -72,23 +75,23 @@ public class PlayerStats : MonoBehaviour
         {
             moveProvider.enabled = currentFuel > 0;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
+        if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             Damage(10); // Simulate taking 10 damage
         }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
+        if (Input.GetKeyDown(KeyCode.Alpha6))
         {
             Heal(10); // Simulate healing 10 health
         }
-        if (Input.GetKeyDown(KeyCode.Alpha6))
+        if (Input.GetKeyDown(KeyCode.Alpha7))
         {
             Refuel(); // Refuel to maximum fuel
         }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
+        if (Input.GetKeyDown(KeyCode.Alpha8))
         {
             FireBullet(); // Simulate firing a bullet
         }
-        if (Input.GetKeyDown(KeyCode.Alpha7))
+        if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             Reload(); // Reload the gun
         }
@@ -108,18 +111,25 @@ public class PlayerStats : MonoBehaviour
     {
         stunned = true;
         stunScreen.SetActive(true);
+        stunText.text = "SYSTEM CONTROL ERROR\r\nRESET NEEDED\r\n(5 PUMPS NEEDED)\r\n";
         savedBullets = currentBullets;
         currentBullets = 0;
+        stunCounter = 0;
     }
 
     public void CheckStunInput()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4))
         {
-            moveProvider.enabled = true;
-            currentBullets = savedBullets;
-            stunned = false;
-            stunScreen.SetActive(false);
+            stunCounter++;
+            stunText.text = "SYSTEM CONTROL ERROR\r\nRESET NEEDED\r\n(" + (5 - stunCounter) + " PUMPS NEEDED)\r\n";
+            if(stunCounter >= 5)
+            {
+                moveProvider.enabled = true;
+                currentBullets = savedBullets;
+                stunned = false;
+                stunScreen.SetActive(false);
+            }
         }
     }
 
@@ -222,7 +232,7 @@ public class PlayerStats : MonoBehaviour
             currentBullets += change;
             UpdateBulletsText();
 
-            upgradeText.text += "+10% MAX BULLETS\n";
+            upgradeText.text += "+10% MAX BULLETS\r\n";
             Debug.Log("LEVEL UP: +10% MAX BULLETS ");
         }
         else if (currentLevel == 3 || currentLevel == 6 || currentLevel == 9 || currentLevel == 12)
@@ -232,7 +242,7 @@ public class PlayerStats : MonoBehaviour
             currentHealth += change;
             if (healthSlider != null) healthSlider.fillAmount = currentHealth / maxHealth;
 
-            upgradeText.text = "+10% MAX HEALTH\n";
+            upgradeText.text = "+10% MAX HEALTH\r\n";
             Debug.Log("LEVEL UP: +10% MAX HEALTH ");
         }
         else if (currentLevel == 4 || currentLevel == 7 || currentLevel == 10 || currentLevel == 13)
@@ -242,7 +252,7 @@ public class PlayerStats : MonoBehaviour
             currentFuel += change;
             if (fuelSlider != null) fuelSlider.fillAmount = currentFuel / maxFuel;
 
-            upgradeText.text = "+10% MAX FUEL\n";
+            upgradeText.text = "+10% MAX FUEL\r\n";
             Debug.Log("LEVEL UP: +10% MAX FUEL ");
         }
 

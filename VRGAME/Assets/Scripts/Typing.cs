@@ -83,7 +83,7 @@ public class Typing : MonoBehaviour
                 
             }
             //otherwise add letter
-            else if (!char.IsDigit(c)){
+            else if (!char.IsDigit(c) && c != '='){
                 send += c;
                 //rand = Random.Range(0, 2);
                 //if(rand == 0){
