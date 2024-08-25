@@ -33,12 +33,13 @@ public class TutorialUpdates : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (gameObject.name == "TutorialHitbox1" && other.gameObject.tag == "MainCamera" && !popUp1Triggered)
+        Debug.Log(other.gameObject.name);
+        if (gameObject.name == "TutorialHitbox1" && other.gameObject.name == "Gun" && !popUp1Triggered)
         { 
             popUp1.SetActive(true);
             popUp1Triggered = true;
         }
-        if (gameObject.name == "TutorialHitbox2" && other.gameObject.tag == "MainCamera" && !popUp2Triggered)
+        if (gameObject.name == "TutorialHitbox2" && other.gameObject.name == "Gun" && !popUp2Triggered)
         {
             popUp2.SetActive(true);
             playerStatsManager.Damage(50f);
