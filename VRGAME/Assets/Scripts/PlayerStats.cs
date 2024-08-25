@@ -242,7 +242,7 @@ public class PlayerStats : MonoBehaviour
             currentHealth += change;
             if (healthSlider != null) healthSlider.fillAmount = currentHealth / maxHealth;
 
-            upgradeText.text = "+10% MAX HEALTH\r\n";
+            upgradeText.text += "+10% MAX HEALTH\r\n";
             Debug.Log("LEVEL UP: +10% MAX HEALTH ");
         }
         else if (currentLevel == 4 || currentLevel == 7 || currentLevel == 10 || currentLevel == 13)
@@ -252,7 +252,7 @@ public class PlayerStats : MonoBehaviour
             currentFuel += change;
             if (fuelSlider != null) fuelSlider.fillAmount = currentFuel / maxFuel;
 
-            upgradeText.text = "+10% MAX FUEL\r\n";
+            upgradeText.text += "+10% MAX FUEL\r\n";
             Debug.Log("LEVEL UP: +10% MAX FUEL ");
         }
 

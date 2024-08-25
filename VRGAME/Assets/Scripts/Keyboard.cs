@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class Keyboard : MonoBehaviour
 {
@@ -16,6 +17,10 @@ public class Keyboard : MonoBehaviour
     private string inputtedCode;                        //the code the player(s) input
     private string command;                             //the desired effect the player wants when they call on the stratagem
     //private float stratagemCooldown;                    //cooldown
+
+    public GameObject popUp;
+    public GameObject popUp1;
+
 
     /*
     * Here are the variables to set text: 
@@ -52,6 +57,7 @@ public class Keyboard : MonoBehaviour
         {  //start the game
             gameStarted = true;
             ResetStratagemDisplay();
+            //add arduino switch
         }
 
         if (typer.IsReady())
@@ -145,6 +151,8 @@ public class Keyboard : MonoBehaviour
                 correctSound.Play();
                 break;
         }
+        if(popUp != null) popUp.SetActive(false);
+        if(popUp1 != null) popUp1.SetActive(true);
         stratagemInProgress = false;
         ResetStratagemDisplay();
     }

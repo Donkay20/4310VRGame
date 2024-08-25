@@ -14,6 +14,9 @@ public class DistanceDetection : MonoBehaviour
     public ParticleSystem hitEffect;
     private bool hasDamagedPlayer = false;
 
+    public float bulletDamage = 0.1f;
+    public float laserDamage = 1.0f;
+
     // This script sets what happens when object reaches the target
     // Mode 0: on impact destroy and decrease player health
     // Mode 1: after a certain distance away, stop moving and start shooting
@@ -75,12 +78,12 @@ public class DistanceDetection : MonoBehaviour
         if (other.gameObject.tag == "Bullet")
         {
             if (hitEffect != null) hitEffect.Play();
-            hp -= 0.1f;
+            hp -= bulletDamage;
         }
         if (other.gameObject.tag == "LaserBullet")
         {
             if (hitEffect != null) hitEffect.Play();
-            hp -= 1f;
+            hp -= laserDamage;
         }
     }
 
