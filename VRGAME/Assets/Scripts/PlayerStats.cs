@@ -75,6 +75,7 @@ public class PlayerStats : MonoBehaviour
         {
             moveProvider.enabled = currentFuel > 0;
         }
+        /*
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             Damage(10); // Simulate taking 10 damage
@@ -94,7 +95,7 @@ public class PlayerStats : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             Reload(); // Reload the gun
-        }
+        }*/
         if (stunned)
         {
             moveProvider.enabled = false;
@@ -119,7 +120,7 @@ public class PlayerStats : MonoBehaviour
 
     public void CheckStunInput()
     {
-        if (Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4))
+        if (Input.GetKeyDown(KeyCode.Equals))
         {
             stunCounter++;
             stunText.text = "SYSTEM CONTROL ERROR\r\nRESET NEEDED\r\n(" + (5 - stunCounter) + " PUMPS NEEDED)\r\n";

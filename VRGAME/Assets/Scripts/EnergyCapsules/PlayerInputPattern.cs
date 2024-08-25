@@ -26,9 +26,11 @@ public class PlayerInputPattern : MonoBehaviour
         AttachPatternToKey(KeyCode.Alpha8, 2, 'y');
         AttachPatternToKey(KeyCode.Alpha9, 2, 'z');
 
-        if (Input.GetKeyDown(KeyCode.Equals))
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             CapsulesController.Instance.CheckPatternsInCapsules(inputPattern);
+            serialController.SendSerialMessage("0");
+            ResetPattern();
         }
         // if (Input.GetKeyDown(KeyCode.Alpha0))
         // {
@@ -83,8 +85,15 @@ public class PlayerInputPattern : MonoBehaviour
         if (Input.GetKeyDown(k))
         {
             UpdatePatternElement(row, component);
-            int code = row*3 + (component - 71);
+            int code = row*3 + (component - 69);
             serialController.SendSerialMessage("" + code);
         }
+    }
+
+    public void ResetPattern()
+    {
+        inputPattern[0] = new Vector3(0, 0, 0);
+        inputPattern[1] = new Vector3(0, 0, 0);
+        inputPattern[2] = new Vector3(0, 0, 0);
     }
 }

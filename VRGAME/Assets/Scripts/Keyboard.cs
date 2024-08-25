@@ -76,7 +76,7 @@ public class Keyboard : MonoBehaviour
 
         if (gameStarted)
         {   //all stratagem commands
-            if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1)) && !stratagemInProgress)
+            if (Input.GetKeyDown(KeyCode.Backslash) && !stratagemInProgress)
             {   //heal stratagem
                 command = "heal";
                 InitializeStratagem();
@@ -85,7 +85,7 @@ public class Keyboard : MonoBehaviour
                 stratagemReloadText.text = "Heal In Progress";
             }
 
-            if ((Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2)) && !stratagemInProgress)
+            if (Input.GetKeyDown(KeyCode.KeypadMinus) && !stratagemInProgress)
             {   //refuel stratagem
                 command = "refuel";
                 InitializeStratagem();
@@ -94,7 +94,7 @@ public class Keyboard : MonoBehaviour
                 stratagemReloadText.text = "Refuel In Progress";
             }
 
-            if ((Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3)) && !stratagemInProgress)
+            if (Input.GetKeyDown(KeyCode.Slash) && !stratagemInProgress)
             {   //reload stratagem
                 command = "reload";
                 InitializeStratagem();

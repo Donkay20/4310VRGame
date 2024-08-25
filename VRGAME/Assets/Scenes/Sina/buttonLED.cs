@@ -69,31 +69,31 @@ public class ButtonLEDController : MonoBehaviour
                 switch (i)
                 {
                     case 0:
-                        inputPattern.UpdatePatternElement(0, 'x', 1);
+                        //inputPattern.UpdatePatternElement(0, 'x', 1);
                         break;
                     case 1:
-                        inputPattern.UpdatePatternElement(0, 'y', 1);
+                        //inputPattern.UpdatePatternElement(0, 'y', 1);
                         break;
                     case 2:
-                        inputPattern.UpdatePatternElement(0, 'z', 1);
+                        //inputPattern.UpdatePatternElement(0, 'z', 1);
                         break;
                     case 3:
-                        inputPattern.UpdatePatternElement(1, 'x', 1);
+                        //inputPattern.UpdatePatternElement(1, 'x', 1);
                         break;
                     case 4:
-                        inputPattern.UpdatePatternElement(1, 'y', 1);
+                        //inputPattern.UpdatePatternElement(1, 'y', 1);
                         break;
                     case 5:
-                        inputPattern.UpdatePatternElement(1, 'z', 1);
+                        //inputPattern.UpdatePatternElement(1, 'z', 1);
                         break;
                     case 6:
-                        inputPattern.UpdatePatternElement(2, 'x', 1);
+                        //inputPattern.UpdatePatternElement(2, 'x', 1);
                         break;
                     case 7:
-                        inputPattern.UpdatePatternElement(2, 'y', 1);
+                        //inputPattern.UpdatePatternElement(2, 'y', 1);
                         break;
                     case 8:
-                        inputPattern.UpdatePatternElement(2, 'z', 1);
+                        //inputPattern.UpdatePatternElement(2, 'z', 1);
                         break;
                     default:
                         Debug.LogError("Invalid component.");
@@ -116,31 +116,31 @@ public class ButtonLEDController : MonoBehaviour
                 switch (i)
                 {
                     case 0:
-                        inputPattern.UpdatePatternElement(0, 'x', 0);
+                        //inputPattern.UpdatePatternElement(0, 'x', 0);
                         break;
                     case 1:
-                        inputPattern.UpdatePatternElement(0, 'y', 0);
+                        //inputPattern.UpdatePatternElement(0, 'y', 0);
                         break;
                     case 2:
-                        inputPattern.UpdatePatternElement(0, 'z', 0);
+                        //inputPattern.UpdatePatternElement(0, 'z', 0);
                         break;
                     case 3:
-                        inputPattern.UpdatePatternElement(1, 'x', 0);
+                        //inputPattern.UpdatePatternElement(1, 'x', 0);
                         break;
                     case 4:
-                        inputPattern.UpdatePatternElement(1, 'y', 0);
+                        //inputPattern.UpdatePatternElement(1, 'y', 0);
                         break;
                     case 5:
-                        inputPattern.UpdatePatternElement(1, 'z', 0);
+                        //inputPattern.UpdatePatternElement(1, 'z', 0);
                         break;
                     case 6:
-                        inputPattern.UpdatePatternElement(2, 'x', 0);
+                        //inputPattern.UpdatePatternElement(2, 'x', 0);
                         break;
                     case 7:
-                        inputPattern.UpdatePatternElement(2, 'y', 0);
+                        //inputPattern.UpdatePatternElement(2, 'y', 0);
                         break;
                     case 8:
-                        inputPattern.UpdatePatternElement(2, 'z', 0);
+                        //inputPattern.UpdatePatternElement(2, 'z', 0);
                         break;
                     default:
                         Debug.LogError("Invalid component.");
