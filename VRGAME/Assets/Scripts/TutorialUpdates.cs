@@ -44,7 +44,7 @@ public class TutorialUpdates : MonoBehaviour
             popUp2.SetActive(true);
             playerStatsManager.Damage(50f);
             popUp2Triggered = true;
-            laserEnergyScript.ChargeEnergy(75f);
+            laserEnergyScript.ChargeEnergy(50f);
         }
     }
 }

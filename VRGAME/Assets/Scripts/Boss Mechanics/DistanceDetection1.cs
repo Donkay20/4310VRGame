@@ -13,6 +13,8 @@ public class DistanceDetection1 : MonoBehaviour
 
     public float bulletDamage = 0.1f;
     public float laserDamage = 20.0f;
+    public float timerToHacked = 3.0f;
+    public GameObject endScreen;
 
     // This script sets what happens when object reaches the target
     // Mode 0: on impact destroy and decrease player health
@@ -28,8 +30,16 @@ public class DistanceDetection1 : MonoBehaviour
     {
         if (hp <= 0f)
         {
-            Destroy(this.gameObject, 0.2f);
-            SceneManager.LoadScene("BossArena");
+            endScreen.SetActive(true);
+            timerToHacked -= Time.deltaTime;
+            if (timerToHacked < 0f)
+            {
+                foreach (GameObject o in Object.FindObjectsOfType<GameObject>())
+                {
+                    if (o.gameObject.name != "CenterBullseye") Destroy(o);
+                }
+                SceneManager.LoadScene("Cutscene", LoadSceneMode.Single);
+            }
         }
     }
 

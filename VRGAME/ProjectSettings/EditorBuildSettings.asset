@@ -9,11 +9,14 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 55daccc09a3b69647bbab145b54a3ab3
   - enabled: 1
-    path: Assets/Scenes/BossArena.unity
-    guid: 5df5cc2ec4eb5304d8a6ce62dca9beb0
-  - enabled: 1
     path: Assets/Scenes/TutorialArena.unity
     guid: c69921067c5ccd94aa4c1584574b6f87
+  - enabled: 1
+    path: Assets/Scenes/Cutscene.unity
+    guid: f259c0e5d6a733147bf1265403499f48
+  - enabled: 1
+    path: Assets/Scenes/BossArena.unity
+    guid: 5df5cc2ec4eb5304d8a6ce62dca9beb0
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dc5a169419fa04987b057f65238cf3ba, type: 2}
