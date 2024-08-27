@@ -85,7 +85,7 @@ public class Keyboard : MonoBehaviour
                 stratagemReloadText.text = "Heal In Progress";
             }
 
-            if (Input.GetKeyDown(KeyCode.KeypadMinus) && !stratagemInProgress)
+            if (Input.GetKeyDown(KeyCode.Minus) && !stratagemInProgress)
             {   //refuel stratagem
                 command = "refuel";
                 InitializeStratagem();
@@ -93,7 +93,7 @@ public class Keyboard : MonoBehaviour
                 stratagemHealText.text = "Refuel In Progress";
                 stratagemReloadText.text = "Refuel In Progress";
             }
-
+            
             if (Input.GetKeyDown(KeyCode.Slash) && !stratagemInProgress)
             {   //reload stratagem
                 command = "reload";

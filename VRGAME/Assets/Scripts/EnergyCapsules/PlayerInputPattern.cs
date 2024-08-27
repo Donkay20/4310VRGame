@@ -26,7 +26,7 @@ public class PlayerInputPattern : MonoBehaviour
         AttachPatternToKey(KeyCode.Alpha8, 2, 'y');
         AttachPatternToKey(KeyCode.Alpha9, 2, 'z');
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             CapsulesController.Instance.CheckPatternsInCapsules(inputPattern);
             serialController.SendSerialMessage("0");
@@ -86,6 +86,8 @@ public class PlayerInputPattern : MonoBehaviour
         {
             UpdatePatternElement(row, component);
             int code = row*3 + (component - 69);
+            code -= 50;
+            //Debug.Log("Code sent to Ardity: "+ code);
             serialController.SendSerialMessage("" + code);
         }
     }

@@ -43,6 +43,10 @@ public class PlayerStats : MonoBehaviour
     private int savedBullets;
     public int stunCounter;
 
+    private int bulletPercent = 0;
+    private int healthPercent = 0;
+    private int fuelPercent = 0;
+
 
     void Start()
     {
@@ -83,7 +87,7 @@ public class PlayerStats : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
             Heal(10); // Simulate healing 10 health
-        }
+        55}
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
             Refuel(); // Refuel to maximum fuel
@@ -195,7 +199,7 @@ public class PlayerStats : MonoBehaviour
             fuelColor.b = currentFuel / maxFuel;
             fuelSlider.color = fuelColor;
         }
-        Debug.Log("Fuel tank refueled to " + currentFuel);
+        //Debug.Log("Fuel tank refueled to " + currentFuel);
     }
 
     public void FireBullet()
@@ -231,9 +235,10 @@ public class PlayerStats : MonoBehaviour
             int change = (int)(maxBullets * 0.1);
             maxBullets += change;
             currentBullets += change;
+            bulletPercent += 10;
             UpdateBulletsText();
 
-            upgradeText.text += "+10% MAX BULLETS\r\n";
+            
             Debug.Log("LEVEL UP: +10% MAX BULLETS ");
         }
         else if (currentLevel == 3 || currentLevel == 6 || currentLevel == 9 || currentLevel == 12)
@@ -241,9 +246,10 @@ public class PlayerStats : MonoBehaviour
             int change = (int)(maxHealth * 0.1);
             maxHealth += change;
             currentHealth += change;
+            healthPercent += 10;
             if (healthSlider != null) healthSlider.fillAmount = currentHealth / maxHealth;
 
-            upgradeText.text += "+10% MAX HEALTH\r\n";
+            
             Debug.Log("LEVEL UP: +10% MAX HEALTH ");
         }
         else if (currentLevel == 4 || currentLevel == 7 || currentLevel == 10 || currentLevel == 13)
@@ -251,12 +257,16 @@ public class PlayerStats : MonoBehaviour
             int change = (int)(maxFuel * 0.1);
             maxFuel += change;
             currentFuel += change;
+            fuelPercent += 10;
             if (fuelSlider != null) fuelSlider.fillAmount = currentFuel / maxFuel;
 
-            upgradeText.text += "+10% MAX FUEL\r\n";
+            
             Debug.Log("LEVEL UP: +10% MAX FUEL ");
         }
 
+        if (bulletPercent != 0) upgradeText.text = "+" + bulletPercent + "% MAX BULLETS\r\n";
+        if (healthPercent != 0) upgradeText.text += "+" + healthPercent +"% MAX HEALTH\r\n";
+        if (fuelPercent != 0) upgradeText.text += "+"+ fuelPercent +"% MAX FUEL\r\n";
         //levelTextAnim.Play("FadeOut");
     }
 
